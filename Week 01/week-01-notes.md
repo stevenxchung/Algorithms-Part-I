@@ -188,3 +188,23 @@ This section covers analysis of algorithms and reasons for doing so.
 * Some principles of the scientific method include:
   * Experiments must be repoducible
   * Hypotheses must be falsifiable
+
+### Experimental algorithmics
+* Observing what is happening to the run-time of our programs as we vary input size gives us a way to predict performance
+* System independent effects:
+  * Algorithm
+  * Input data
+* System dependent effects:
+  * Hardware: CPU, memory, cache, ...
+  * Software: compiler, interpreter, garbage collector, ...
+  * System: operating system, network, other apps, ...
+* Bad news:
+  * It is difficult to get precise measurements
+* Good news:
+  * Much easier and cheaper than other sciences
+
+### Mathematical models
+* Although we could observe the run-time of our programs, it does not help us understand what our algorithms are doing
+* By looking at some basic operation as a proxy for running time we can come up with a general run-time of our operation
+* Once we have an estimate we can ignore lower order terms (tilde notation)
+* We can estimate a discrete sum through discrete mathematics or calculus
