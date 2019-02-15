@@ -238,3 +238,17 @@ public static int binarySearch(int[] a, int key) {
   }
 }
 ```
+
+### Types of Analysis
+* There are different ways of analyzing the algorithm depending on the input, this breaks down algorithm run-time into best case, average case, and worst case:
+  * Best case is determined by the "easiest" input and provides a goal for all inputs
+  * Worse case is determined by the "hardest" input and provides a guarantee for all inputs
+  * Best and worst case can be mapped to the lower and upper bound of run-time respectively
+  * Average case is the expected cost for a random input and provides a way to predict run-time
+  * *Important to note that Big-O notation provides only an upper bound on the growth rate of a function as n gets large*
+
+### Algorithm design approach
+* Develop an algorithm
+* Prove a lower bound
+* Lower the upper bound (discover a new algorithm)
+* Raise the lower bound (more difficult)
