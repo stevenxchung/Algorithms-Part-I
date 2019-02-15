@@ -208,3 +208,33 @@ This section covers analysis of algorithms and reasons for doing so.
 * By looking at some basic operation as a proxy for running time we can come up with a general run-time of our operation
 * Once we have an estimate we can ignore lower order terms (tilde notation)
 * We can estimate a discrete sum through discrete mathematics or calculus
+
+### Order-of-growth classifications
+* There are only a small set of functions we care about regarding performance:
+  * log(n) - Fast
+  * n - OK
+  * n * log(n) - OK
+  * n^2 - Slow
+  * n^3 - Slower
+  * 2^n - Slowest
+* We try the best we can to make sure an algorithm is not quadratic or cubic
+
+
+### Binary search: Java implementation
+* Below is a Java implementation of binary search which takes logrithmic time to complete:
+```java
+public static int binarySearch(int[] a, int key) {
+  int lo = 0, hi = a.length - 1;
+  while (lo <= hi) {
+    int mid = lo + (hi - lo) / 2;
+    if (key < a[mid]) {
+      hi = mid - 1;
+    } else if (key > a[mid]) {
+      lo = mid + 1;
+    } else {
+      return mid;
+    }
+    return -1;
+  }
+}
+```
