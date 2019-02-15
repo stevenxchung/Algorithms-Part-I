@@ -1,6 +1,6 @@
-## Week 1
+## Week 1: Union-Find
 
-Week 1 covers topics in Union-find which addresses the dyanmic connectivity problem. Analysis of algorithms is also another topic included in the Week 1 lectures.
+This secion covers topics in Union-find which addresses the dyanmic connectivity problem.
 
 ### Steps to developing a usable algorithm
 * Model the problem
@@ -165,3 +165,26 @@ private int root (int i) {
 * N-by-N grid of sites
 * Each site is open with probability p (or blocked with porbability 1-p)
 * System percolates if and only if top and bottom are connected by open sites
+
+## Week 1: Analysis of Algorithms
+
+This section covers analysis of algorithms and reasons for doing so.
+
+### Reasons to analyze algorithms
+* Predict peformance
+* Compare algorithms
+* Provide guarantees
+* Understand theoretical basis
+* Avoid performance bugs
+
+### Scientific method applied to analysis of algorithms
+* A framework for predicting performance and comparing algorithms
+  * Observe some feature of the natural world (run-time of a program on a computer)
+  * Hypothesize a mode that is consistent with the observations
+  * Predict events using the hypothesis (run-time of a larger problem-size)
+  * Verify the predictions by making further observations
+  * Validate by repeating until the hypothesis and observations agree
+
+* Some principles of the scientific method include:
+  * Experiments must be repoducible
+  * Hypotheses must be falsifiable
