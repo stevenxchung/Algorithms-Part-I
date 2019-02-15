@@ -252,3 +252,24 @@ public static int binarySearch(int[] a, int key) {
 * Prove a lower bound
 * Lower the upper bound (discover a new algorithm)
 * Raise the lower bound (more difficult)
+
+### Memory
+* Although run-time costs of operations are important, memory cost is also important
+* Let's look at an example of memory cost in Java, how much memory does this union-find function use as a function of N? *About 8N bytes*
+```java
+public class WeightedQuickUnionUF { // 16 bytes (object overhead)
+  private int[] id; // 8 + (4N + 24) each reference + int[] array
+  private int[] sz;
+  private int count; // 4 bytes (int)
+  // 4 bytes (padding)
+  public WeightedQuickUnionUF(int N) {
+    id = new int[N];
+    sz = new int[N];
+    for (int i = 0; i < N; i++) {
+      id[i] = i;
+    }
+    for (int i = 0; i < N; i++) {
+      sz[i] = i;
+    }
+  }
+}
