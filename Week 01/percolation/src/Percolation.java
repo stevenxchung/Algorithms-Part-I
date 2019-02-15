@@ -5,14 +5,26 @@ public class Percolation {
     private int boxSize; // Size of the grid
     private int top = 0; // Initial top node at 0
     private int bottom; // Initial bottom node
-    private int nOpenSites; // Number of opened sites
+    private int nOpenSites = 0; // Number of opened sites
     private boolean[][] opened; // Holds 2D information on which site is open or closed
     private WeightedQuickUnionUF wqu; // Weight Quick Union object reference
+
+    /**
+     * Checks if indices are valid
+     */
+    private boolean checkIndices(int row, int col) {
+        // True or false
+        return (row < 1 || row > boxSize || col < 1 || col > boxSize);
+    }
 
     /**
      * Converts 2D array into a 1D array
      */
     private int getIndex(int row, int col) {
+        // Check if indices are valid
+        if (checkIndices(row, col)) {
+            throw new java.lang.IllegalArgumentException();
+        }
         return boxSize * (row - 1) + col;
     }
 
@@ -24,8 +36,9 @@ public class Percolation {
         bottom = boxSize * boxSize + 1;
         wqu = new WeightedQuickUnionUF(boxSize * boxSize + 2);
         opened = new boolean[boxSize][boxSize];
+        // Check for invalid inputs
         if (inputSize <= 0) {
-            throw new IllegalArgumentException();
+            throw new java.lang.IllegalArgumentException();
         }
     }
 
@@ -33,8 +46,17 @@ public class Percolation {
      * Opens site at a particular 2D index
      */
     public void open(int row, int col) {
-        nOpenSites++;
-        opened[row - 1][col - 1] = true; // Set whichever site is opened to true
+        // Check if indices are valid
+        if (checkIndices(row, col)) {
+            throw new java.lang.IllegalArgumentException();
+        }
+
+        // If site is not open, set to open
+        if (!isOpen(row, col)) {
+            opened[row - 1][col - 1] = true; // Set whichever site is opened to true
+            nOpenSites++;
+        }
+
         // Checks if top row is selected first then go down the checklist
         if (row == 1) {
             wqu.union(getIndex(row, col), top);
@@ -62,6 +84,10 @@ public class Percolation {
      * Check if site is open
      */
     public boolean isOpen(int row, int col) {
+        // Check if indices are valid
+        if (checkIndices(row, col)) {
+            throw new java.lang.IllegalArgumentException();
+        }
         return opened[row - 1][col - 1];
     }
 
@@ -69,18 +95,18 @@ public class Percolation {
      * Check if size is full
      */
     public boolean isFull(int row, int col) {
-        if (0 < row && row <= boxSize && 0 < col && col <= boxSize) {
-            return wqu.connected(top, getIndex(row , col));
-        } else {
+        // Check if indices are valid
+        if (checkIndices(row, col)) {
             throw new java.lang.IllegalArgumentException();
         }
+        return wqu.connected(getIndex(row, col), top);
     }
 
     /**
      * Return number of open sites
      */
     public int numberOfOpenSites() {
-        return nOpenSites - 1;
+        return nOpenSites;
     }
 
     /**
