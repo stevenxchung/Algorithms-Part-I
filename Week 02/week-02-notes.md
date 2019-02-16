@@ -148,3 +148,44 @@ public String pop() {
   * Resizing-array implementation:
     * Every operation takes constant amortized time (constant time overall)
     * Less wasted space
+
+### Queues
+* What if we wanted to implement a queue with a linked-list?
+```java
+public class LinkedQueueOfStrings {
+  private Node first = null;
+  private Node last = null;
+
+  private class Node {
+    String item;
+    Node next;
+  }
+
+  public boolean isEmpty() {
+    return first == null;
+  }
+
+  public void enqueue(String item) {
+    Node oldlast = last;
+    last = new Node();
+    last.item = item;
+    last.next = null;
+    // Check if empty
+    if (isEmpty()) {
+      first = last;
+    } else {
+      oldlast.next = last;
+    }
+  }
+
+  public String dequeue() {
+    String item = first.item;
+    first = first.next;
+    // Check if empty
+    if (isEmpty()) {
+      last = null;
+    }
+    return item;
+  }
+}
+```
