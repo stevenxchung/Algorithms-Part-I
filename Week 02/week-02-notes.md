@@ -100,3 +100,51 @@ public String pop() {
   return item;
 }
 ```
+### Resizing arrays
+* Problem: looking back at our stack array implementation, we require the client to provide capacity when we need to know how to grow and shrink the array
+* If array is full, create a new array of twice the size:
+``` java
+public ResizingArrayStackOfStrings() {
+  s = new String[1];
+}
+
+public void push(String item) {
+  if (N == s.length) {
+    resize(2 * s.length);
+  }
+  s[N++] = item;
+}
+
+private void resize(int capacity) {
+  String[] copy = new String[capacity];
+  for (int i = 0; i < N; i++) {
+    copy[i] = s[i];
+  }
+  s = copy;
+}
+```
+
+* To shrink the array we would implement the logic:
+  * push(): double size of array s[] when array is full
+  * pop(): havle the size of array s[] when array is one-half full
+* This sequence is too expensive in the worst case however since each operation takes N time, instead it is more efficient to implement the following:
+   * push(): double size of array s[] when array is full
+   * pop(): havle the size of array s[] when array is *one-quarter* full
+``` java
+public String pop() {
+  String item = s[--N];
+  s[N] = null;
+  if (N > 0 && N == s.length/4) {
+    resize(s.length/2);
+  }
+  return item;
+}
+```
+
+* So when would we implement a resizing array vs a linked-list?
+  * Linked-list implementation:
+    * Every operation takes constant time in the worst case
+    * Uses extra time and space to deal with the links
+  * Resizing-array implementation:
+    * Every operation takes constant amortized time (constant time overall)
+    * Less wasted space
