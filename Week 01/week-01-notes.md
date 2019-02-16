@@ -177,7 +177,7 @@ private int root (int i) {
 
 ### Percolation
 * N-by-N grid of sites
-* Each site is open with probability p (or blocked with porbability 1-p)
+* Each site is open with probability p (or blocked with probability 1-p)
 * System percolates if and only if top and bottom are connected by open sites
 
 ## Week 1: Analysis of Algorithms
@@ -185,7 +185,7 @@ private int root (int i) {
 > The basis of our approach for analyzing the performance of algorithms is the scientific method. We begin by performing computational experiments to measure the running times of our programs. We use these measurements to develop hypotheses about performance. Next, we create mathematical models to explain their behavior. Finally, we consider analyzing the memory usage of our Java programs.
 
 ### Reasons to analyze algorithms
-* Predict peformance
+* Predict performance
 * Compare algorithms
 * Provide guarantees
 * Understand theoretical basis
@@ -200,7 +200,7 @@ private int root (int i) {
   * Validate by repeating until the hypothesis and observations agree
 
 * Some principles of the scientific method include:
-  * Experiments must be repoducible
+  * Experiments must be reproducible
   * Hypotheses must be falsifiable
 
 ### Experimental algorithmics
@@ -235,7 +235,7 @@ private int root (int i) {
 
 
 ### Binary search: Java implementation
-* Below is a Java implementation of binary search which takes logrithmic time to complete:
+* Below is a Java implementation of binary search which takes logarithmic time to complete:
 ```java
 public static int binarySearch(int[] a, int key) {
   int lo = 0, hi = a.length - 1;
