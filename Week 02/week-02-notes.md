@@ -286,3 +286,92 @@ Stack<Integer> s = new Stack<Integer>();
 s.push(17); // s.push(new Integer(17));
 int a = s.pop(); // int a = s.pop().intValue();
 ```
+
+### Iterators
+* What is an Iterable?
+  * Has a method that returns an Iterator
+```java
+public interface Iterable<Item> {
+  Iterator<Item> iterator();
+}
+```
+
+* What is an Iterator?
+  * Has methods hasNext() and next()
+```java
+public interface Iterable<Item> {
+  boolean hasNext();
+  Item next();
+}
+```
+
+* Why make data structures Iterable?
+  * Java supports elegant client code
+```java
+for (String s: stack) {
+  StdOut.println(s);
+}
+
+// longhand foreach statement
+Iterator<String> i = stack.iterator();
+while (i.hasNext()) {
+  String s = i.next();
+  StdOut.println(s);
+}
+```
+
+* Below is an implementation of a stack iterator for linked-lists:
+```java
+public class Stack<Item> implements Iterable<Item> {
+
+  // ...
+
+  public Iterator<Item> iterator() {
+    return new ListIterator();
+  }
+
+  private class ListIterator implements Iterator<Item> {
+    private Node current = first;
+
+    public boolean hasNext() {
+      return current != null;
+    }
+
+    // Not supported
+    public void remove() {}
+
+    public Item next() {
+      Item item = current.item;
+      current = current.next;
+      return item
+    }
+  }
+}
+```
+
+* For arrays it is similar:
+```java
+public class Stack<Item> implements Iterable<Item> {
+
+  // ...
+
+  public Iterator<Item> iterator() {
+    return new ReverseArrayIterator();
+  }
+
+  private class ReverseArrayIterator implements Iterator<Item> {
+    private int i = N;
+
+    public boolean hasNext() {
+      return i > 0;
+    }
+
+    // Not supported
+    public void remove() {}
+
+    public Item next() {
+      return s[--i];
+    }
+  }
+}
+```
