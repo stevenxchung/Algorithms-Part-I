@@ -1,6 +1,6 @@
 ## Week 1: Union-Find
 
-This secion covers topics in Union-find which addresses the dyanmic connectivity problem.
+> We illustrate our basic approach to developing and analyzing algorithms by considering the dynamic connectivity problem. We introduce the union–find data type and consider several implementations (quick find, quick union, weighted quick union, and weighted quick union with path compression). Finally, we apply the union–find data type to the percolation problem from physical chemistry.
 
 ### Steps to developing a usable algorithm
 * Model the problem
@@ -62,8 +62,9 @@ public class QuickFindUF {
 
   public QuickFindUF(int N) {
     id = new int[N];
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < N; i++) {
       id[i] = i;
+    }
   }
 
   public boolean connected(int p, int q) {
@@ -73,8 +74,9 @@ public class QuickFindUF {
   public void union(int p, int q) {
     int pid = id[p];
     int qid = id[q];
-    for (int i = 0; i < id.length; i++)
+    for (int i = 0; i < id.length; i++) {
       if (id[i] == pid) id[i] = qid
+    }
   }
 }
 ```
@@ -96,11 +98,15 @@ public class QuickUnionUF {
 
   public QuickUnionUF(int N) {
     id = new int[N];
-    for (int i = 0; i < N; i++) id[i] = i;
+    for (int i = 0; i < N; i++) {
+      id[i] = i;
+    }
   }
 
   private int root(int i) {
-    while (i != id[i]) i = id[i];
+    while (i != id[i]) {
+      i = id[i];
+    }
     return i;
   }
 
@@ -136,9 +142,17 @@ return root(p) == root(q);
 ```java
 int i = root(p);
 int j = root(q);
-if (i == j) return;
-if (sz[i] < sz[j]) { id[i] = j; sz[j] += sz[i]; }
-else  { id[j] = i; sz[i] += sz[j]; }
+if (i == j) {
+  return;
+}
+if (sz[i] < sz[j]) {
+  id[i] = j;
+  sz[j] += sz[i];
+}
+else  {
+  id[j] = i;
+  sz[i] += sz[j];
+}
 ```
 
 * This weighted improvement allows the following:
@@ -168,7 +182,7 @@ private int root (int i) {
 
 ## Week 1: Analysis of Algorithms
 
-This section covers analysis of algorithms and reasons for doing so.
+> The basis of our approach for analyzing the performance of algorithms is the scientific method. We begin by performing computational experiments to measure the running times of our programs. We use these measurements to develop hypotheses about performance. Next, we create mathematical models to explain their behavior. Finally, we consider analyzing the memory usage of our Java programs.
 
 ### Reasons to analyze algorithms
 * Predict peformance
