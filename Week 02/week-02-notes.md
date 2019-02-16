@@ -57,3 +57,46 @@ public class LinkedStackOfStrings {
 
 * Every operation takes constant time in the worst case
 * A stack with N items uses ~40 N bytes
+
+* What if we wanted to implement a stack with an array?
+```java
+public class FixedCapacityStackOfStrings {
+  private String[] s;
+  private int N = 0;
+  // Cheating a bit here since we are requiring the client to input a capacity
+  public FixedCapacityStackOfStrings(int capacity) {
+    s = new String[capacity];
+  }
+
+  public boolean isEmpty() {
+    return N == 0;
+  }
+
+  public void push(String item) {
+    s[N++] = item; // Use N++ to index into array then increment N
+  }
+
+  public String pop() {
+    return s[--N]; // Decrement N, then use to index into array
+  }
+}
+```
+
+* Stack considerations include:
+  * Underflow: throw an exception if pop from an empty stack
+  * Overflow: use resizing array for array implementation
+* Null items can be inserted into a stack
+* Loitering: holding reference to an object when it is no longer needed
+```java
+// Here we are still holding references
+public String pop() {
+  return s[--N];
+}
+
+// To address loitering
+public String pop() {
+  String item = s[--N];
+  s[N] = null
+  return item;
+}
+```
