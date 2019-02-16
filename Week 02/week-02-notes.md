@@ -189,3 +189,100 @@ public class LinkedQueueOfStrings {
   }
 }
 ```
+
+### Generics
+* So far our implementations only covers strings not other data types, we want to implement a separate stack class for each type
+* One solution is to implement casting, however casting is error-prone since run-time error could occur if types mismatch
+* A better approach is to use generics:
+  * Avoids casting in the client
+  * Discovers type mismatch errors at compile-time instead of run-time
+
+* A linked-list implementation for stacks using generics:
+```java
+// Here we can use our stack implementation for the generic type name Item
+public class Stack<Item> {
+  private Node first = null;
+
+  private class Node {
+    Item item;
+    Node next;
+  }
+
+  public boolean isEmpty() {
+    return first == null;
+  }
+
+  public void push(Item item) {
+    Node oldfirst = first;
+    first = new Node();
+    first.item = item;
+    first.next = oldfirst;
+  }
+
+  public Item pop() {
+    Item item = first.item;
+    first = first.next;
+    return item;
+  }
+}
+```
+
+* However Java does not allow for array implementation using generics:
+```java
+// This is not allowed in Java
+public class FixedCapacityStack<Item> {
+  private Item[] s;
+  private int N = 0;
+
+  public FixedCapacityStack(int capacity) {
+    s = new Item[capacity];
+  }
+
+  public boolean isEmpty() {
+    return N == 0;
+  }
+
+  public void push(Item item) {
+    s[N++] = item;
+  }
+
+  public Item pop() {
+    return s[--N];
+  }
+}
+```
+
+* Therefore, for arrays we are stuck with casting:
+```java
+// This is allowed in Java
+public class FixedCapacityStack<Item> {
+  private Item[] s;
+  private int N = 0;
+
+  public FixedCapacityStack(int capacity) {
+    s = (Item[]) new Object[capacity]; // Cast using (Item[])
+  }
+
+  public boolean isEmpty() {
+    return N == 0;
+  }
+
+  public void push(Item item) {
+    s[N++] = item;
+  }
+
+  public Item pop() {
+    return s[--N];
+  }
+}
+```
+
+* What about primitive types?
+  * Each primitive type has a wrapper object type
+  * There is a feature known as autoboxing which acts as an automatic cast between a primitive type and its wrapper:
+```java
+// This is what happens behind the scenes
+Stack<Integer> s = new Stack<Integer>();
+s.push(17); // s.push(new Integer(17));
+int a = s.pop(); // int a = s.pop().intValue();
+```
