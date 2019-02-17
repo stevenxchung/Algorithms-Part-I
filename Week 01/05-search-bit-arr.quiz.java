@@ -1,3 +1,4 @@
+// Search in a bitonic array
 public class FindBit {
 
 	boolean findBit(int nums[], int size, int key) {
