@@ -1,3 +1,4 @@
+// 3-SUM in quadratic time
 public class FindTriplet {
 
 	boolean findTriple(int nums[], int size, int target) {
