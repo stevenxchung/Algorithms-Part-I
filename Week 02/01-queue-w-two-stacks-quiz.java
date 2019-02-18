@@ -1,7 +1,7 @@
 // Queue with two stacks
 import java.util.Stack;
 
-class StackQueue<Item> {
+public class StackQueue<Item> {
   // One stack for inputs
   private Stack<Item> input = new Stack<Item>();
   // One stack for outputs
@@ -37,5 +37,31 @@ class StackQueue<Item> {
     }
 
     return output.pop();
+  }
+
+  public static void main(String[] args) {
+    StackQueue<Integer> queueWTwoStacks = new StackQueue<Integer>();
+    int start = 0;
+    int incr = 0;
+    int end = 10;
+
+    System.out.println("Initial size: " + queueWTwoStacks.size());
+    queueWTwoStacks.enqueue(start);
+    while (incr <= end) {
+      // Dequeue even elements
+      if (incr % 2 == 0) {
+        System.out.println("Dequeue: " + queueWTwoStacks.dequeue());
+      } else {
+        // Otherwise enqueue at odd elements
+        queueWTwoStacks.enqueue(incr);
+        System.out.println("Enqueue: " + incr);
+      }
+      incr++;
+    }
+    // Continue to dequeue until list is empty
+    while (!queueWTwoStacks.isEmpty()) {
+        System.out.println("Dequeue: " + queueWTwoStacks.dequeue());
+    }
+    System.out.println("Final Size: " + queueWTwoStacks.size());
   }
 }
