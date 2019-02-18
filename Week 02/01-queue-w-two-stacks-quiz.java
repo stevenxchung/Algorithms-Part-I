@@ -39,6 +39,7 @@ public class StackQueue<Item> {
     return output.pop();
   }
 
+  // Testing
   public static void main(String[] args) {
     StackQueue<Integer> queueWTwoStacks = new StackQueue<Integer>();
     int start = 0;
