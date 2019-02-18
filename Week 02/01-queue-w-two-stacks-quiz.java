@@ -1,3 +1,4 @@
+// Queue with two stacks
 import java.util.Stack;
 
 class StackQueue<Item> {
