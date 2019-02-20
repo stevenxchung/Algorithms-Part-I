@@ -379,3 +379,37 @@ public class Stack<Item> implements Iterable<Item> {
 ## Week 2: Elementary Sorts
 
 We introduce the sorting problem and Java's Comparable interface. We study two elementary sorting methods (selection sort and insertion sort) and a variation of one of them (shellsort). We also consider two algorithms for uniformly shuffling an array. We conclude with an application of sorting to computing the convex hull via the Graham scan algorithm.
+
+### Selection sort
+* Start out with an unsorted array and in the ith iteration we go through the array to try to find the smallest remaining entry
+* Scans from left to right and tries to find the smallest to swap
+
+* Below is an implementation of selection sort in Java:
+```java
+public class Selection {
+  public class static void sort(Comparable[] a) {
+    int N = a.length;
+    for (int i = 0; i < N; i++) {
+      int min = i;
+      for (int j = i + 1; j < N; j++) {
+        if (less(a[j], a[min])) {
+          min = j;
+        }
+        exch(a, i, min);
+      }
+    }
+  }
+
+  private static boolean less(Comparable v, Comparable w) {
+    // ...
+  }
+
+  private static void exch(Comparable[] a, int i, int j) {
+    // ...
+  }
+
+}
+```
+
+* Selection sort has a quadratic run-time even if input is sorted
+* Linear number of exchanges
