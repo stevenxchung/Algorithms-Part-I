@@ -7,8 +7,8 @@ public class Deque<Item> implements Iterable<Item> {
 
     private class Node {
         Item item;
+        Node prev;
         Node next;
-        Node last;
     }
 
     // Need to have custom iterator to perform repetitive queue tasks
@@ -27,7 +27,7 @@ public class Deque<Item> implements Iterable<Item> {
             }
             Item item = current.item;
             current = current.next;
-            
+
             return item;
         }
 
@@ -38,7 +38,7 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     // Throw exception if item is null
-    private void nullException() {
+    private void nullException(Item item) {
         if (item == null) {
             throw new java.lang.IllegalArgumentException();
         }
@@ -53,8 +53,6 @@ public class Deque<Item> implements Iterable<Item> {
 
     // Construct an empty deque
     public Deque() {
-        first = null;
-        last = null;
         size = 0;
     }
 
@@ -70,59 +68,57 @@ public class Deque<Item> implements Iterable<Item> {
 
     // Add the item to the front
     public void addFirst(Item item) {
-        nullException();
+        nullException(item);
         Node oldNode = first;
         first = new Node();
         first.item = item;
         first.next = oldNode;
-        first.last = null;
 
         // If deque is empty set last to first
-        if (isEmpty()) {
+        if (last == null) {
             last = first;
         } else {
-            oldNode.last = first;
+            first.next.prev = first;
         }
 
         // Increase the size after the operation
-        size += 1;
+        size++;
     }
 
     // Add the item to the end
     public void addLast(Item item) {
-        nullException();
+        nullException(item);
         Node oldNode = last;
         last = new Node();
         last.item = item;
-        last.next = null;
-        last.last = oldNode;
+        last.prev = oldNode;
 
         // If deque is empty set first to last
-        if (isEmpty()) {
+        if (first == null) {
             first = last;
         } else {
-            oldNode.next = last;
+            last.prev.next = last;
         }
 
         // Increase the size after the operation
-        size += 1;
+        size++;
     }
 
     // Remove and return the item from the front
     public Item removeFirst() {
         emptyException();
         Item item = first.item;
-        first = first.next;
-
-        // If deque is still empty after assignment, set last to first
-        if (isEmpty()) {
-            last = first;
-        } else {
-            first.last = null;
-        }
-
         // Decrease the size after operation
-        size -= 1;
+        size--;
+
+        // If deque is still empty after assignment set both to null
+        if (isEmpty()) {
+            first = null;
+            last = null;
+        } else {
+            first = first.next;
+            first.prev = null;
+        }
 
         return item;
     }
@@ -131,17 +127,17 @@ public class Deque<Item> implements Iterable<Item> {
     public Item removeLast() {
         emptyException();
         Item item = last.item;
-        last = last.last;
-
-        // If deque is still empty after assignment, set first to last
-        if (isEmpty()) {
-            first = last;
-        } else {
-            last.last = null;
-        }
-
         // Decrease the size after operation
-        size -= 1;
+        size--;
+
+        // If deque is still empty after assignment set both to null
+        if (isEmpty()) {
+            last = null;
+            first = null;
+        } else {
+            last = last.prev;
+            last.next = null;
+        }
 
         return item;
     }
