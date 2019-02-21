@@ -34,6 +34,20 @@ public class Deque<Item> implements Iterable<Item> {
         }
     }
 
+    // Throw exception if item is null
+    private void nullException() {
+        if (item == null) {
+            throw new java.lang.IllegalArgumentException();
+        }
+    }
+
+    // Throw exception if deque is empty
+    private void emptyException() {
+        if (isEmpty()) {
+            throw new java.util.NoSuchElementException();
+        }
+    }
+
     // Construct an empty deque
     public Deque() {
         first = null;
@@ -53,10 +67,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     // Add the item to the front
     public void addFirst(Item item) {
-        // Illegal argument if item is null
-        if (item == null) {
-            throw new java.lang.IllegalArgumentException();
-        }
+        nullException();
         Node oldNode = first;
         first = new Node();
         first.item = item;
@@ -76,10 +87,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     // Add the item to the end
     public void addLast(Item item) {
-        // Illegal argument if item is null
-        if (item == null) {
-            throw new java.lang.IllegalArgumentException();
-        }
+        nullException();
         Node oldNode = last;
         last = new Node();
         last.item = item;
@@ -99,10 +107,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     // Remove and return the item from the front
     public Item removeFirst() {
-        // No such element if deque is empty
-        if (isEmpty()) {
-            throw new java.util.NoSuchElementException();
-        }
+        emptyException();
         Item item = first.item;
         first = first.next;
 
@@ -121,10 +126,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     // Remove and return the item from the end
     public Item removeLast() {
-        // No such element if deque is empty
-        if (isEmpty()) {
-            throw new java.util.NoSuchElementException();
-        }
+        emptyException();
         Item item = last.item;
         last = last.last;
 
