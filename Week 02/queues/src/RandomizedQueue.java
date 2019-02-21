@@ -6,6 +6,22 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private Item[] itemArr;
     private int size;
 
+    // Throw exception if deque is empty
+    private void emptyException() {
+        if (isEmpty()) {
+            throw new java.util.NoSuchElementException();
+        }
+    }
+
+    // Resizes array when called
+    private void resizeArr(int maxSize) {
+        Item[] temp = (Item[]) new Object[maxSize];
+        for (int i = 0; i < size; i++) {
+            temp[i] = itemArr[i];
+        }
+        itemArr = temp;
+    }
+
     // Similar to deque, need to have custom iterator to perform repetitive queue tasks
     private class customIterator implements Iterator<Item> {
         private int i = size;
@@ -40,13 +56,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
     }
 
-    // Resizes array when called
-    public void resizeArr(int maxSize) {
-        Item[] temp = (Item[]) new Object[maxSize];
-        System.arraycopy(itemArr, 0, temp, 0, maxSize);
-        itemArr = temp;
-    }
-
     // Construct an empty randomized queue
     public RandomizedQueue() {
         // Cast Item[]
@@ -69,34 +78,34 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (item == null) {
             throw new java.lang.IllegalArgumentException();
         }
-
-        itemArr[size++] = item;
+        // Resize array if array is at max
         if (size == itemArr.length) {
             resizeArr(2 * itemArr.length);
         }
+
+        itemArr[size++] = item;
     }
 
     // Remove and return a random item
     public Item dequeue() {
-        if (isEmpty()) {
-            throw new java.util.NoSuchElementException();
-        }
-        int rand = StdRandom.uniform(size);
-        Item item = itemArr[rand];
-        itemArr[rand] = itemArr[size - 1];
-        itemArr[--size] = null;
+        emptyException();
+        // Resize array if array is at 1/4 the size
         if (size == (itemArr.length / 4) && size > 0) {
             resizeArr(itemArr.length / 2);
         }
+
+        int rand = StdRandom.uniform(size);
+        // Initialize item as an element at some random index
+        Item item = itemArr[rand];
+        itemArr[rand] = itemArr[size - 1];
+        itemArr[--size] = null;
 
         return item;
     }
 
     // Return a random item (but do not remove it)
     public Item sample() {
-        if (isEmpty()) {
-            throw new java.util.NoSuchElementException();
-        }
+        emptyException();
         int rand = StdRandom.uniform(size);
 
         return itemArr[rand];
