@@ -11,8 +11,14 @@ public class Deque<Item> implements Iterable<Item> {
         Node last;
     }
 
+    // Need to have custom iterator to perform repetitive queue tasks
     private class customIterator implements Iterator<Item> {
         private Node current = first;
+
+        // Returns true only if the current node is not null
+        public boolean hasNext() {
+            return current != null;
+        }
 
         public Item next() {
             // Throw exception if current does not have a neighbor
@@ -21,16 +27,13 @@ public class Deque<Item> implements Iterable<Item> {
             }
             Item item = current.item;
             current = current.next;
+            
             return item;
         }
 
         // Throws exception if remove() is executed in iterator
         public void remove() {
             throw new java.lang.UnsupportedOperationException();
-        }
-
-        public boolean hasNext() {
-            return current != null;
         }
     }
 
