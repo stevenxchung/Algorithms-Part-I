@@ -407,9 +407,136 @@ public class Selection {
   private static void exch(Comparable[] a, int i, int j) {
     // ...
   }
-
 }
 ```
 
 * Selection sort has a quadratic run-time even if input is sorted
 * Linear number of exchanges
+
+### Insertion Sort
+* Move an index i from left to right as before but now move the element into position among the other elements to the left (can implement this least-to-greatest or greatest-to-least)
+
+* The implementation for insertion sort in Java is as follows:
+```java
+public class Insertion {
+  public static void sort(Comparable[] a) {
+    int N = a.length;
+    for (int i = 0; i < N; i++) {
+      for (int j = i; j > 0; j--) {
+        if (less(a[j], a[j - 1])) {
+          exch(a, j, j - 1);
+        }
+        else {
+          break;
+        }
+      }
+    }
+  }
+
+  private static boolean less(Comparable v, Comparable w) {
+    // ...
+  }
+
+  private static void exch(Comparable[] a, int i, int j) {
+    // ...
+  }
+}
+```
+
+* Insertion sort does depend on the initial order of the data
+* In most cases, the data is partially sorted and the run-time is linear for this case
+
+### Shellsort
+* One of the oldest sorting methods invented by Shell in 1959
+* The idea of shellsort is to move entries more than one position at a time by *h-sorting* the array
+* Very similar to insertion sort except when going back left to check order we go back by h and not index i
+* A *g-sorted* array remains *g-sorted* after *h-sorting* it
+
+
+* The implementation for shellsort in Java is as follows:
+```java
+public class Shell {
+  public static void sort(Comparable[] a) {
+    int N = a.length;
+
+    int h = 1;
+    while (h < N/3) {
+      h = 3 * h + 1
+    }
+
+    while (h >= 1) {
+      for (int i = h; i < N; i++) {
+        for (int j = i; j >= h && less(a[j], a[j - h]); j -= h) {
+          exch(a, j, j - h)
+        }
+      }
+
+      h = h/3
+    }
+  }
+
+  private static boolean less(Comparable v, Comparable w) {
+    // ...
+  }
+
+  private static void exch(Comparable[] a, int i, int j) {
+    // ...
+  }
+}
+```
+
+* In general, the worst-case number of compares used by shellsort with the 3x + 1 increments is about *O(n^3/2)*, however in practice the run-time is much less but there is no known model of that
+* Why use shellsort?
+  * Fast unless array size is huge
+  * Tiny, fixed footprint for code (used in embedded systems)
+  * Hardware sort prototype
+
+### Shuffling
+* How would we shuffle a deck of cards in linear-time such that the result is a uniformly random permutation?
+  * Use Knuth's shuffling algorithm which picks a random integer r between 0 and i and applies that to shuffle the deck on each iteration
+
+* The implementation of Knuth's shuffling algorithm in Java:
+```java
+public class StdRandom {
+  // ...
+  public static void shuffle(Object[] a) {
+    int N = a.length;
+    for (int i = 0; i < N; i++) {
+      int r = StdRandom.uniform(i + 1);
+      exch(a, i , r);
+    }
+  }
+}
+```
+
+### Convex Hull
+* The convex hull is a geometric object which is the smallest polygon that encloses all points
+* How to write a program which gives us a convex hull?
+  * Consider the geometric properties of the convex hull:
+    * Can transverse convex hull only by making counterclockwise turns
+    * The vertices of convex hull appear in increasing order of polar angle
+* From what we know about the geometric properties of the convex hull we can apply Graham scan:
+  * Choose point p with smallest y-coordinate
+  * Sort points by polar angle with p
+  * Consider points in order, discard unless it can create a CCW turn
+
+* Below is a sample implementation of Graham scan in Java:
+```java
+Stack<Point2D> hull = new Stack<Point>();
+
+Arrays.sort(p, Point2D.Y_ORDER); // p[0] is now point with lowest y-coordinate
+Arrays.sort(p, p[0].BY_POLAR_ORDER); // Sort by polar angle with respect to p[0]
+
+hull.push(p[0]);
+hull.push(p[1]);
+
+for (int i = 2; i < N; i++) {
+  Point2D top = hull.pop();
+  // Discard points that would create CW turns
+  while (Point2D.ccw(hull.peek(), top, p[i]]) <= 0) {
+    top = hull.pop()
+  }
+  hull.push(top);
+  hull.push(p[i]); // Add p[i] to putative hull
+}
+```
