@@ -8,7 +8,7 @@ We study the mergesort algorithm and show that it guarantees to sort any array o
   * Recursively sort each half
   * Merge two halves
 
-* The Java implementation of Mergesort could be implemented as follows:
+* The Java implementation of mergesort could be implemented as follows:
 ```java
 private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
   assert isSorted(a, lo, mid); // Precondition: a[lo... mid] sorted
@@ -81,5 +81,31 @@ private static void sort(Comparable[] a, Comparable[] aux, int lo, int mid, int 
     return;
   }
   merge(a, aux, low, mid, hi);
+}
+```
+
+### Bottom-up Recursion
+* Although mergesort is easy to understand as recursive program, bottom-up version has no recursion:
+  * Pass through array, merging sub-arrays of size 1
+  * Repeat for sub-arrays of size 2, 4, 8, 16, ...
+
+* A Java implementation of bottom-up mergesort:
+```java
+public class MergeBU {
+  private static Comparable[] aux;
+
+  private static void merge(Comparable[] a, int lo, int mid, int hi) {
+    /* as before */
+  }
+
+  private static void sort(Comparable[] a) {
+    int N = a.length;
+    aux = new Comparable[N];
+    for (int sz = 1; sz < N; sz = sz + sz) {
+      for (int lo = 0; lo < N - sz; lo += sz + sz) {
+        merge(a, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, N - 1));
+      }
+    }
+  }
 }
 ```
