@@ -127,3 +127,32 @@ public class MergeBU {
   * Optimal algorithm: mergesort
 
 * Mergesort is optimal with respect to # compares but not optimal with respect to space usage
+
+### Comparators
+* We previously saw how Comparables allow us to implement sorts with any type of data, with Comparators, we can help sort using some alternate order or many different orders on the same data
+
+* Here is an insertion sort implementation using Comparators:
+```java
+private static void sort(Object[] a, Comparator comparator) {
+  int N = a.length;
+  for (int i = 0; i < N; i++) {
+    for (int j = i; j > 0 && less(comparator, a[j], a[j - 1]); j--) {
+      exch(a, j, j - 1);
+    }
+  }
+}
+
+private static boolean less(Comparator c, Object v, Object w) {
+  return c.compare(v, w) < 0;
+}
+
+private static void exch(Object[] a; int i; int j) {
+  Object swap = a[i];
+  a[i] = a[j];
+  a[j] = swap;
+}
+```
+
+* In general, to implement a comparator:
+  * Define a (nested) class that implements the Comparator interface
+  * Implement the compare() method
