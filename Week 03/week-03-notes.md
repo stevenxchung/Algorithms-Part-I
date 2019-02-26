@@ -84,7 +84,7 @@ private static void sort(Comparable[] a, Comparable[] aux, int lo, int mid, int 
 }
 ```
 
-### Bottom-up Recursion
+### Bottom-up mergesort
 * Although mergesort is easy to understand as recursive program, bottom-up version has no recursion:
   * Pass through array, merging sub-arrays of size 1
   * Repeat for sub-arrays of size 2, 4, 8, 16, ...
@@ -109,3 +109,21 @@ public class MergeBU {
   }
 }
 ```
+
+### Sort complexity
+* Computational complexity is a framework to study efficiency of algorithms for solving a particular problem X
+* There are several thing we care about when studying complexity:
+  * Model of computation - allowable operations
+  * Cost model - operation counts
+  * Upper bound - cost guarantee provided by some algorithm for X
+  * Lower bound - proven limit on cost guarantee of all algorithms for X
+  * Optimal algorithm - algorithm with best possible cost guarantee for X
+
+* Here is an example with sorting:
+  * Model of computation: decision tree
+  * Cost model: # compares
+  * Upper bound: ~*n * log(n)* (mergesort)
+  * Lower bound: ~*n * log(n)*
+  * Optimal algorithm: mergesort
+
+* Mergesort is optimal with respect to # compares but not optimal with respect to space usage
