@@ -1,6 +1,6 @@
 ## Week 3: Mergesort
 
-We study the mergesort algorithm and show that it guarantees to sort any array of nn items with at most *n * log(n)* compares. We also consider a nonrecursive, bottom-up version. We prove that any compare-based sorting algorithm must make at least ∼*n * log(n)* compares in the worst case. We discuss using different orderings for the objects that we are sorting and the related concept of stability.
+We study the mergesort algorithm and show that it guarantees to sort any array of nn items with at most *n * log(n)* compares. We also consider a non-recursive, bottom-up version. We prove that any compare-based sorting algorithm must make at least ∼*n * log(n)* compares in the worst case. We discuss using different orderings for the objects that we are sorting and the related concept of stability.
 
 ### Mergesort
 * Mergesort could be broken down into parts:
@@ -31,7 +31,7 @@ private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int
     }
   }
 
-  assert isSorted(a, lo, hi); // Postcondition: a[lo... hi] sorted
+  assert isSorted(a, lo, hi); // Post-condition: a[lo... hi] sorted
 }
 ```
 
@@ -156,3 +156,12 @@ private static void exch(Object[] a; int i; int j) {
 * In general, to implement a comparator:
   * Define a (nested) class that implements the Comparator interface
   * Implement the compare() method
+
+### Stability
+* Stability refers to how well an algorithm is able to preserve the relative order of items with equal keys
+* Which one of our previously covered sorts are stable?
+  * Insertion and merge sort are stable but not selection or shellsort
+* Why are insertion sort and merge sort stable?
+  * Equal items never move past each other
+* Why are selection sort and shellsort not stable?
+  * There may be long-distance exchanges which might move an item past some equal item
