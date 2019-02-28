@@ -1,4 +1,5 @@
 // Social network connectivity
+
 public class WeightedQuickUnionFind {
   private int id[]; // Parents of node i at id[i]
   private int size[]; // Size of node i at size[i]
