@@ -1,4 +1,5 @@
 // Successor with delete
+
 public class SuccessorAfterDelete {
   private int N; // Number of integers N in S
   private boolean data[]; // False if data[x] is removed
