@@ -298,3 +298,41 @@ public static Comparable select(Comparable[] a, int k) {
 ```
 
 * Quick-select takes *linear-time* on average
+
+### Duplicate keys
+* Mergesort with duplicate keys always took between *(1/2) * n * log(n)* and *n * log(n)* compares
+* Quicksort with duplicate keys goes quadratic unless partitioning stops on equal keys
+* We want to partition array into three parts such that:
+  * Entries between *a* and *b* are equal to partition item *c*
+  * No larger entries to left to *a* (lower bound)
+  * No smaller entries to right of *b* (upper bound)
+
+* Here's how we would implement three-way quicksort:
+```java
+private static void sort(Comparable[] a, int lo, int hi) {
+  if (hi <= lo) {
+    return;
+  }
+
+  int lt = lo, gt = hi;
+  Comparable v = a[lo];
+  int i = lo;
+
+  while (i <= gt) {
+    int cmp = a[i].compareTo(v);
+
+    if (cmp < 0) {
+      exch(a, lt++, i++);
+    } else if (cmp > 0) {
+      exch(a, i, gt--);
+    } else {
+      i++;
+    }
+
+    sort(a, lo, lt - 1);
+    sort(a, gt + 1, hi);
+  }
+}
+```
+
+* Randomized quicksort with three-way partitioning reduces running time from linearithmic to linear in broad class of applications
