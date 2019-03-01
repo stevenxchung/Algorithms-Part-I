@@ -268,3 +268,33 @@ public static void sort(Comparable[] a, int lo, int hi) {
   sort(a, j + 1, hi);
 }
 ```
+
+### Selection
+* Similar to quicksort we want a method to quickly select a particular item in a set
+* The idea for selection is to partition an array so that:
+  * Entry a[j] is in place
+  * No larger entry to the left of j
+  * No smaller entry to the right of j
+* Repeat in one sub-array, depending on j
+* Finished when j equals k
+
+* An implementation of quick-select is as follows:
+```java
+public static Comparable select(Comparable[] a, int k) {
+  StdRandom.shuffle(a);
+  int lo = 0, hi = a.length - 1;
+  while (hi < lo) {
+    int j = partition(a, lo, hi);
+    if (j < k) {
+      lo = j + 1;
+    } else if (j > k) {
+      hi = j - 1;
+    } else {
+      return a[k];
+    }
+    return a[k];
+  }
+}
+```
+
+* Quick-select takes *linear-time* on average
