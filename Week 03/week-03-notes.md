@@ -165,3 +165,106 @@ private static void exch(Object[] a; int i; int j) {
   * Equal items never move past each other
 * Why are selection sort and shellsort not stable?
   * There may be long-distance exchanges which might move an item past some equal item
+
+## Week 3: Quicksort
+
+We introduce and implement the randomized quicksort algorithm and analyze its performance. We also consider randomized quick-select, a quicksort variant which finds the kth smallest item in linear time. Finally, consider 3-way quicksort, a variant of quicksort that works especially well in the presence of duplicate keys.
+
+### Quicksort
+* Quicksort is a recursive method which works in several steps:
+  * Shuffle the array
+  * Partition so that, for some j:
+    * entry a[j] is in place
+    * no larger entry to the left of j
+    * no smaller entry to the right of j
+  * Sort each piece recursively
+
+* The code for partitioning is as follows:
+```java
+private static int partition(Comparable[] a, int lo, int hi) {
+  int i = lo, j = hi + 1;
+  while (true) {
+    // Find item on left to swap
+    while (less(a[++i], a[lo]) {
+      if (i = hi) {
+        break;
+      }
+    })
+    // Find item on right to swap
+    while (less(a[lo], a[--j]) {
+      if (j = lo) {
+        break;
+      }
+    })
+    // Check if pointers cross
+    if (i >= j) {
+      break;
+      exch(a, i, j);
+    }
+  }
+  // Swap with partitioning item
+  exch(a, lo, j);
+  // Return index of item now known to be in place
+  return j;
+}
+```
+
+* Remember that quicksort itself is a recursive program:
+``` java
+public class Quick {
+  private static int partition(Comparable[] a, int lo, int hi) {
+    /* as before */
+  }
+
+  public static void sort(Comparable[] a) {
+    StdRandom.shuffle(a); // Needed for performance guarantee
+    sort(a, 0, a.length - 1);
+  }
+
+  public static void sort(Comparable[] a, int lo, int hi) {
+    if (hi <= lo) {
+      return;
+    }
+    int j = partition(a, lo, hi);
+    sort(a, lo, j - 1);
+    sort(a, j + 1, hi);
+  }
+}
+```
+
+* Shuffling is needed for performance guarantee, this preserves randomness
+* Best case number of compares for quicksort is ~*n * log(n)*
+* Worst case number of compares for quicksort is ~*(1/2) * n^2*
+* The average number of compares for quicksort is ~*2n * log(n)*
+* On average, quicksort does about 40% more compares than mergesort but faster than mergesort due to less data movement
+* Quicksort is an *in-place* sorting algorithm
+* Quicksort is *not stable*
+
+* There is a way to make quicksort faster by using insertion sort as a step for small arrays:
+```java
+public static void sort(Comparable[] a, int lo, int hi) {
+  if (hi <= lo + CUTOFF - 1) {
+    Insertion.sort(a, lo, hi);
+    return;
+  }
+  int j = partition(a, lo, hi);
+  sort(a, lo, j - 1);
+  sort(a, j + 1, hi);
+}
+```
+
+* Another improvement is to take median of sample (not worth for large samples):
+```java
+public static void sort(Comparable[] a, int lo, int hi) {
+  if (hi <= lo) {
+    return;
+  }
+
+  int m = medianOfThree(a, lo, lo + (hi - lo) / 2, hi);
+  swap(a, lo, m);
+
+  int j = partition(a, lo, hi);
+  sort(a, lo, j - 1);
+  sort(a, j + 1, hi);
+}
+```
