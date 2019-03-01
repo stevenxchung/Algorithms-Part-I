@@ -16,6 +16,33 @@ public class Point implements Comparable<Point> {
     private final int x;     // x-coordinate of this point
     private final int y;     // y-coordinate of this point
 
+    // Slope comparator
+    private class SlopeCompare implements Comparator<Point> {
+
+        private Point point;
+
+        SlopeCompare(Point point) {
+            this.point = point;
+        }
+
+        @Override
+        public int compare(Point a, Point b) {
+            double slopeA = a.slopeTo(point);
+            double slopeB = b.slopeTo(point);
+
+            if (slopeA == slopeB) {
+                return 0;
+            }
+
+            if (slopeA < slopeB) {
+                return -1;
+            }
+
+            // Otherwise, slopeA > Slope B
+            return 1;
+        }
+    }
+
     /**
      * Initializes a new point.
      *
@@ -111,24 +138,9 @@ public class Point implements Comparable<Point> {
      *
      * @return the Comparator that defines this ordering on points
      */
-    public class slopeOrder implements Comparator<Point>{
-        public int compare(Point a, Point b) {
-            double slopeA = slopeTo(a);
-            double slopeB = slopeTo(b);
-
-            if (slopeA == slopeB) {
-                return 0;
-            }
-
-            if (slopeA < slopeB) {
-                return -1;
-            }
-
-            // Otherwise, slopeA > Slope B
-            return 1;
-        }
+    public Comparator<Point> slopeOrder() {
+        return new SlopeCompare(this);
     }
-
 
     /**
      * Returns a string representation of this point.
