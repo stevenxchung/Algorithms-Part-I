@@ -2,7 +2,7 @@
  *  Compilation:  javac Point.java
  *  Execution:    java Point
  *  Dependencies: none
- *  
+ *
  *  An immutable data type for points in the plane.
  *  For use on Coursera, Algorithms Part I programming assignment.
  *
@@ -59,7 +59,23 @@ public class Point implements Comparable<Point> {
      * @return the slope between this point and the specified point
      */
     public double slopeTo(Point that) {
-        /* YOUR CODE HERE */
+        // Here, "that" refers to x1 or y1 and "this" refers to x0 or y0
+        if (that.x == this.x) {
+            if (that.y == this.y) {
+                // Satisfies (x0, y0) == (x1, y1)
+                return Double.NEGATIVE_INFINITY;
+            }
+            // Satisfies x0 == x1
+            return Double.POSITIVE_INFINITY;
+        }
+
+        if (that.y == this.y) {
+            // y0 == y1 then slope is zero
+            return 0.0;
+        }
+
+        // Return the slope
+        return (double) (that.y - this.y) / (that.x - this.x);
     }
 
     /**
@@ -75,7 +91,18 @@ public class Point implements Comparable<Point> {
      *         argument point
      */
     public int compareTo(Point that) {
-        /* YOUR CODE HERE */
+        if (that.x == this.x && that.y == this.y) {
+            // Satisfies (x0, y0) == (x1, y1)
+            return 0;
+        }
+
+        if (this.y < that.y || (this.y == that.y && this.x < that.x)) {
+            // "this" x0 or y0 is < "that" x1 or y1 respectively
+            return -1;
+        }
+
+        // "this" x0 or y0 is > "that" x1 or y1 respectively
+        return 1;
     }
 
     /**
@@ -84,8 +111,22 @@ public class Point implements Comparable<Point> {
      *
      * @return the Comparator that defines this ordering on points
      */
-    public Comparator<Point> slopeOrder() {
-        /* YOUR CODE HERE */
+    public class slopeOrder implements Comparator<Point>{
+        public int compare(Point a, Point b) {
+            double slopeA = slopeTo(a);
+            double slopeB = slopeTo(b);
+
+            if (slopeA == slopeB) {
+                return 0;
+            }
+
+            if (slopeA < slopeB) {
+                return -1;
+            }
+
+            // Otherwise, slopeA > Slope B
+            return 1;
+        }
     }
 
 
