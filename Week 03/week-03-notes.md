@@ -336,3 +336,22 @@ private static void sort(Comparable[] a, int lo, int hi) {
 ```
 
 * Randomized quicksort with three-way partitioning reduces running time from linearithmic to linear in broad class of applications
+
+### System sorts
+* Java has a *sort()* method which:
+  * Has a different method for each primitive type
+  * Has a method for data types that implement Comparable
+  * Has a method that uses a Comparator
+  * Uses tuned quicksort for primitive types; tuned mergesort for objects
+
+* A sort function widely used in C, C++ and Java has the following:
+  * Cutoff to insertion sort for small sub-arrays
+  * Partitioning scheme: three-way partitioning (Dijkstra's)
+  * Partitioning item:
+    * Small arrays: middle entry
+    * Medium arrays: median of three
+    * Large arrays: Tukey's ninther
+
+* Tukey's ninther - median of three samples, each three entries:
+  * Approximates the median of nine
+  * Uses at most twelve compares
