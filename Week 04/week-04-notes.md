@@ -140,3 +140,45 @@ public class MaxPQ<Key extends Comparable<Key>> {
   }
 }
 ```
+### Heap sort
+* Here's the basic idea of heap sort:
+  * Create max-heap with all *N* keys
+  * Repeatedly remove the maximum key
+* We want to build max heap using bottom-up method (start from the bottom of the tree)
+* Then we want to repeatedly delete the largest remaining item
+
+* Here is what the implementation looks like:
+```java
+public class Heap {
+  public static void sort(Comparable[] pq) {
+    int N = pq.length;
+    for (int k = N / 2; k >= 1; k--) {
+      sink(pq, k, N);
+    }
+    while (N > 1) {
+      exch(pq, 1, N);
+      sink(pq, 1, --N);
+    }
+  }
+
+  private static void sink(Comparable[] pq, int k, int N) {
+    /* as before */
+  }
+
+  private static boolean less(Comparable[] pq, int i, int j) {
+    /* as before */
+  }
+
+  private static void exch(Comparable[] pq, int i, int j) {
+    /* as before */
+  }
+}
+```
+
+* Heap construction uses less than or equal to 2 *N* compares and exchanges
+* Heap sort uses less than or equal to 2 * *(N * log(n))* compares and exchanges
+* Heap sort has an in-place sorting algorithm with *N * log(n)* worse-case
+* The bottom line is that heap sort is optimal for both time and space **but**:
+  * Inner loop is longer than quicksort
+  * Makes poor use of cache memory
+  * Not stable
