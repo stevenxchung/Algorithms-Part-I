@@ -61,3 +61,82 @@ public class UnorderedMaxPQ<Key extends Comparable<key>> {
   }
 }
 ```
+
+### Binary heaps
+* A binary heap is based on the binary tree (empty or node with lines to left and right binary trees)
+* Here are some characteristics of trees:
+  * A complete tree is perfectly balanced except for bottom level
+  * Height of complete tree with *N* nodes is *log(n)*
+  * Height only increases when *N* is a power of two
+
+* Binary heaps are an array representation of a heap-ordered complete binary tree, here's what we mean by that:
+  * Heap-ordered binary tree:
+    * Keys in nodes
+    * Parent's key no smaller than children's keys
+  * Array representation:
+    * Indices start at one
+    * Take nodes in level order
+    * No explicit links needed
+* The largest key in a binary heap is a[1] which is the root of the binary tree
+
+* Here's an implementation of binary heap:
+```java
+public class MaxPQ<Key extends Comparable<Key>> {
+  private Key[] pq;
+  private int N;
+
+  public MaxPQ(int capacity) {
+    pq = (Key[]) new Comparable[capacity + 1];
+  }
+
+  public boolean isEmpty() {
+    return N == 0;
+  }
+
+  public void insert(Key key) {
+    pq[++N] = x;
+    swim(N);
+  }
+
+  public Key delMax() {
+    Key max = pq[1];
+    exch(1, N--);
+    sink(1);
+    pq[N + 1] = null;
+
+    return max;
+  }
+
+  private void swim(int k) {
+    while (k > 1 && less(k / 2, k)) {
+      exch(k , k / 2);
+      k = k / 2;
+    }
+  }
+
+  private void sink(int k) {
+    while (2 * k <= N) {
+      int j = 2 * k;
+      if (j < N && less(j, j + 1)) {
+        j++;
+      }
+      if (!less(k, j)) {
+        break;
+      }
+
+      exch(k, j);
+      k = j;
+    }
+  }
+
+  private boolean less(int i, int j) {
+    return pq[i].compareTo(pq[j]) < 0;
+  }
+
+  private void exch(int i, int j) {
+    Key t = pq[i];
+    pq[i] = pq[j];
+    pq[j] = t;
+  }
+}
+```
