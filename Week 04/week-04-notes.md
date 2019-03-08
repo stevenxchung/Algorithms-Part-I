@@ -182,3 +182,28 @@ public class Heap {
   * Inner loop is longer than quicksort
   * Makes poor use of cache memory
   * Not stable
+
+## Week 4: Elementary Symbol Tables
+
+We define an API for *symbol tables* (also known as *associative arrays*) and describe two elementary implementations using a sorted array (binary search) and an unordered list (sequential search). When the keys are Comparable, we define an extended API that includes the additional methods min, max floor, ceiling, rank, and select. To develop an efficient implementation of this API, we study the *binary search tree* data structure and analyze its performance.
+
+### Symbol table API
+* Symbol tables are key-value pair abstractions:
+  * **Insert** a value with a specified key
+  * Given a key, **search** for the corresponding value
+
+* A good way to set up a basic symbol table API is to implement an associative array abstraction (associate one value with each key)
+
+* Some conventions of this implementation are:
+  * Values are not *null*
+  * Method `get()` returns *null* if key not present
+  * Method `put()` overwrites old value with new value
+* For keys and values:
+  * Assume keys are `Comparable`, use `compareTo()`
+  * Assume keys are any generic type, use `equals()` to test equality
+  * Assume keys are any generic type, use `equals()` to test equality and then `hashCode()` to scramble key
+* Best practices:
+  * Best to use immutable types for symbol table keys
+  * Immutable types in Java include: String, Integer, Double, java.io.File, ...
+  * Mutable in Java: StringBuilder, java.net.URL, arrays, ...
+* Lastly, all java classes inherit a method `equals()`
