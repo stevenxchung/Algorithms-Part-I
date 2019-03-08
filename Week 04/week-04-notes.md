@@ -207,3 +207,44 @@ We define an API for *symbol tables* (also known as *associative arrays*) and de
   * Immutable types in Java include: String, Integer, Double, java.io.File, ...
   * Mutable in Java: StringBuilder, java.net.URL, arrays, ...
 * Lastly, all java classes inherit a method `equals()`
+
+### Elementary implementations
+* One elementary implementation is sequential search in a linked list:
+  * Data structure - maintain an unordered linked list of key-value pairs
+  * Search - scan through all keys until match is found
+  * Insert - scan through all keys until match is found, and add to front if there is no match
+
+* Another implementation is binary search with an ordered array:
+  * Data structure - maintain an ordered array of key-value pairs
+  * Rank helper function - how many keys are less than *k*
+
+* Here is what the binary search implementation looks like in Java:
+```java
+public Value get(Key key) {
+  if (isEmpty()) {
+    return null;
+  }
+  int i = rank(key);
+  if (i < N && keys[i].compareTo(key) == 0) {
+    return vals[i];
+  } else {
+    return null;
+  }
+}
+
+private int rank(Key key) {
+  int lo = 0, hi = N - 1;
+  while (lo <= hi) {
+    int mid = lo + (hi - lo) / 2;
+    int cmp = key.compareTo(key[mid]);
+    if (cmp < 0) {
+      hi = mid - 1;
+    } else if (cmp > 0) {
+      lo = mid + 1;
+    } else {
+      return mid;
+    }
+  }
+  return lo;
+}
+```
