@@ -56,6 +56,10 @@ public class Solver {
 
     // Find a solution to the initial board (using the A* algorithm)
     public Solver(Board initial) {
+        if (initial == null) {
+            throw new java.lang.IllegalArgumentException();
+        }
+
         // Create priority queues for the normal and twin board
         MinPQ<Go> go = new MinPQ<>();
         go.insert(new Go(initial));
