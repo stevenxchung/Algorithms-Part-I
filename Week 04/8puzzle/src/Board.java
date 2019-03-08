@@ -21,11 +21,11 @@ public class Board {
         return n == 0;
     }
 
-    // Check if a particular spot is in the right place
-    private boolean inPlace(int i, int j) {
+    // Check if a particular spot is out of place
+    private boolean outOfPlace(int i, int j) {
         int spot = board[i][j];
 
-        return vacant(spot) && spot == (i * dimension() + j + 1);
+        return !vacant(spot) && spot != (i * dimension() + j + 1);
     }
 
     // Calculate Manhattan distance
@@ -86,7 +86,7 @@ public class Board {
         int blocksOutOfPlace = 0;
         for (int i = 0; i < dimension(); i++) {
             for (int j = 0; j < dimension(); j++) {
-                if (!inPlace(i, j)) {
+                if (outOfPlace(i, j)) {
                     blocksOutOfPlace++;
                 }
             }
@@ -100,9 +100,7 @@ public class Board {
         int sumOfDistances = 0;
         for (int i = 0; i < dimension(); i++) {
             for (int j = 0; j < dimension(); j++) {
-                if (!inPlace(i, j)) {
-                    sumOfDistances += manDistance(i, j);
-                }
+                sumOfDistances += manDistance(i, j);
             }
         }
 
@@ -114,7 +112,7 @@ public class Board {
         for (int i = 0; i < dimension(); i++) {
             for (int j = 0; j < dimension(); j++) {
                 // If an element is not in place then the board has not been completed
-                if (!inPlace(i, j)) {
+                if (outOfPlace(i, j)) {
                     return false;
                 }
             }
@@ -168,16 +166,20 @@ public class Board {
         int jVPos = position[1];
 
         // All scenarios for neighboring boards
+        // Must run through all
         // Rows scenario
         if (iVPos > 0) {
             neighbors.add(new Board(swapSpots(iVPos, jVPos, iVPos - 1, jVPos)));
-        } else if (iVPos < dimension() - 1) {
+        }
+        if (iVPos < dimension() - 1) {
             neighbors.add(new Board(swapSpots(iVPos, jVPos, iVPos + 1, jVPos)));
         }
+
         // Columns scenario
         if (jVPos > 0) {
             neighbors.add(new Board(swapSpots(iVPos, jVPos, iVPos, jVPos - 1)));
-        } else if (jVPos < dimension() - 1) {
+        }
+        if (jVPos < dimension() - 1) {
             neighbors.add(new Board(swapSpots(iVPos, jVPos, iVPos, jVPos + 1)));
         }
 
