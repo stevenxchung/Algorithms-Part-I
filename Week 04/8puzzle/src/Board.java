@@ -6,9 +6,9 @@ public class Board {
 
     // Return a duplicate of the board
     private int[][] dupe(int[][] board) {
-        int[][] dupe = new int[dimension()][dimension()];
-        for (int i = 0; i < dimension(); i++) {
-            for (int j = 0; j < dimension(); j++) {
+        int[][] dupe = new int[board.length][board.length];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
                 dupe[i][j] = board[i][j];
             }
         }
@@ -57,7 +57,7 @@ public class Board {
     private int[] vacantPosition() {
         for (int i = 0; i < dimension(); i++) {
             for (int j = 0; j < dimension(); j++) {
-                if (inPlace(i, j)) {
+                if (vacant(board[i][j])) {
                     int[] position = new int[2];
                     position[0] = i;
                     position[1] = j;
@@ -72,7 +72,7 @@ public class Board {
 
     // Construct a board from an n-by-n array of blocks
     // (where blocks[i][j] = block in row i, column j)
-    public Board(int[][] blocks) {
+    public Board(int[][] board) {
         this.board = dupe(board);
     }
 
@@ -148,11 +148,9 @@ public class Board {
         // Check each spot on the board
         for (int i = 0; i < dimension(); i++) {
             for (int j = 0; j < dimension(); j++) {
-                if (!vacant(board[i][j]) && !vacant(board[i][j + 1])) {
-                    if (((Board) y).board[i][j] != board[i][j]) {
-                        // Return as soon as mismatch occurs
-                        return false;
-                    }
+                if (((Board) y).board[i][j] != board[i][j]) {
+                    // Return as soon as mismatch occurs
+                    return false;
                 }
             }
         }
@@ -163,11 +161,11 @@ public class Board {
 
     // All neighboring boards
     public Iterable<Board> neighbors() {
-        LinkedList<Board> neighbors = new linkedList<Board>();
+        LinkedList<Board> neighbors = new LinkedList<>();
 
         int[] position = vacantPosition();
-        int iVPos = location[0];
-        int jVPos = location[1];
+        int iVPos = position[0];
+        int jVPos = position[1];
 
         // All scenarios for neighboring boards
         // Rows scenario
