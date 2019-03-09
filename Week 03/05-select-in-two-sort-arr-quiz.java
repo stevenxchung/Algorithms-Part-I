@@ -1,5 +1,6 @@
 // Selection in two sorted arrays
 // Pseudo-code simplest case where array sizes are equal, values are equal
+
 public class SelectionInTwoSortedArrays {
   // Compares two arrays and returns the largest key (largest match)
   private static int compare(int[] arrA, int[] arrB) {

@@ -1,7 +1,7 @@
 // Shuffling a linked list
 // Pseudo-code simplest case
-public class ShufflingLinkedList {
 
+public class ShufflingLinkedList {
   // Can shuffle a deck by cutting deck in half and alternate cards during merge
   public void shufflingLinkedList(Node head) {
     // Only move on if deck has cards
