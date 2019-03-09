@@ -336,3 +336,23 @@ private Node put(Node x, Key key, Value val) {
   return x;
 }
 ```
+
+### Ordered operations in BSTs
+* There are many different ordered operations when it comes to BSTs
+
+* How do we find the minimum or maximum in a BST?
+  * Minimum - move left from the root
+  * Maximum - move right from the root
+* How do we determine the floor and ceiling?
+  * Floor - largest key less than or equal to a given key
+  * Ceiling - smallest key greater than or equal to a given key
+* How do we determine rank (How many keys less than *k*)?
+  * Implement recursive algorithm (3 cases)
+  * Need to implement subtree count as part of the `Node` class for this to work
+* How to implement in-order traversal?
+  * Traverse left subtree
+  * Enqueue key
+  * Traverse right subtree
+
+* For all ordered operations, BSTs have a run-time efficiency proportional to the height of the tree except for ordered iteration
+* The height of the BST is also proportional to *log(N)* if keys are inserted in random order
