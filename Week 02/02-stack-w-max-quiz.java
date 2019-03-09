@@ -1,5 +1,4 @@
 // Stack with max
-
 import java.util.Stack;
 import java.util.TreeSet;
 
@@ -27,7 +26,7 @@ public class StackWithMax<Item> extends Stack<Item> {
     return item;
   }
 
-  // Testing
+  // Test
   public static void main(String[] args) {
     StackWithMax<Integer> maxStack = new StackWithMax<Integer>();
     int a = 1;

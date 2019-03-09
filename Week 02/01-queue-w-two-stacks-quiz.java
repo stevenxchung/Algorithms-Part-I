@@ -1,5 +1,4 @@
 // Queue with two stacks
-
 import java.util.Stack;
 
 public class StackQueue<Item> {
@@ -40,7 +39,7 @@ public class StackQueue<Item> {
     return output.pop();
   }
 
-  // Testing
+  // Test
   public static void main(String[] args) {
     StackQueue<Integer> queueWTwoStacks = new StackQueue<Integer>();
     int start = 0;
