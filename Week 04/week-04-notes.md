@@ -356,3 +356,16 @@ private Node put(Node x, Key key, Value val) {
 
 * For all ordered operations, BSTs have a run-time efficiency proportional to the height of the tree except for ordered iteration
 * The height of the BST is also proportional to *log(N)* if keys are inserted in random order
+
+### Deletion in BSTs
+* To remove a node with a given key (lazy approach):
+  * Set its value to *null*
+  * Leave key in tree to guide searches (but don't consider it equal in search)
+  * The problem with this lazy approach is that memory will be overload
+* How to delete the minimum (also applicable to maximum):
+  * Go left until finding a node with a null left link
+  * Replace that node by its right link
+  * Update subtree counts
+* Another way to implement min/max deletion is using Hibbard deletion:
+  * To delete a node with key *k*, search for node *t* containing key *k*
+* The main problem with Hibbert deletion is that it unbalances the tree leading to *sqrt(N)* height
