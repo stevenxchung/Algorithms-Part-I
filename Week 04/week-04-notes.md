@@ -270,3 +270,69 @@ private int rank(Key key) {
 | rank              | *N*               | *log(N)*      |
 | select            | *N*               | *log(N)*      |
 | ordered iteration | *N * log(N)*      | *N*           |
+
+### Binary search tree
+* A BST (Binary Search Tree) is a **binary tree** in **symmetric order**
+* A binary tree tree is either:
+  * Empty
+  * Two disjoint binary trees (left and right)
+* BSTs have symmetric order - each node has a key and every node's key is:
+  * Larger than all keys in its left subtree
+  * Smaller than all keys in its right subtree
+* BSTs is a reference to a root `Node`
+* A Node is comprised of four fields:
+  * A `Key` and a `Value`
+  * A reference to the left and right subtree
+
+* Here is what the `Node` class looks like in Java:
+```java
+private class Node {
+  private Key key;
+  private Value val;
+  private Node left, right;
+  public Node(Key key, Value val) {
+    this.key = key;
+    this.val = val;
+  }
+}
+```
+
+* BST search in Java is:
+```java
+public Value get(Key key) {
+  Node x = root;
+  while (x != null) {
+    int cmp = key.compareTo(x.key);
+    if (cmp < 0) {
+      x = x.left;
+    } else if (cmp > 0) {
+      x = x.right;
+    } else {
+      return x.val;
+    }
+  }
+  return null;
+}
+```
+
+* BST insert implemented in Java is:
+```java
+public void put(Key key, Value val) {
+  root = put(root, key, val);
+}
+// This implementation of put() is recursive
+private Node put(Node x, Key key, Value val) {
+  if (x == null) {
+    return new Node(key, val);
+  }
+  int cmp = key.compareTo(x.key);
+  if (cmp < 0) {
+    x.left = put(x.left, key, val);
+  } else if (cmp > 0) {
+    x.right = put(x.right, key, val);
+  } else {
+    x.val = val;
+  }
+  return x;
+}
+```
