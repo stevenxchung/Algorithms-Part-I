@@ -14,6 +14,7 @@ public class Intersection {
     return count;
   }
 
+  // Test
   public static void main(String[] args) {
     Intersection obj = new Intersection();
     int[][] a = new int[][] {

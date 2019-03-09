@@ -16,6 +16,7 @@ public class DutchNationalFlag {
     System.out.println("Pebble color: " + a[bucket][0]);
   }
 
+  // Test
   public static void main(String[] args) {
     DutchNationalFlag obj = new DutchNationalFlag();
     int[][] a = new int[][] {

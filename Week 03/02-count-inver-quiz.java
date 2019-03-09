@@ -1,4 +1,5 @@
 // Counting inversions
+
 public class CountingInversions {
 
   public int countingInversions(int[] arr, int n) {
@@ -17,6 +18,7 @@ public class CountingInversions {
     return count;
   }
 
+  // Test
   public static void main(String[] args) {
     CountingInversions obj = new CountingInversions();
     int[] testArr = new int[] { 1, 2, 1, 2, 3 };
