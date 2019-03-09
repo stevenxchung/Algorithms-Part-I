@@ -248,3 +248,25 @@ private int rank(Key key) {
   return lo;
 }
 ```
+
+### Ordered operations
+* When keys are comparable we can put them in order, we saw that we can use binary search to get an efficient symbol table implementation
+* Below is a summary of sequential search versus binary search for the following operations:
+  * Search
+  * Insert/delete
+  * Min/max
+  * Floor/ceiling
+  * Rank
+  * Select
+  * Ordered iteration
+
+
+| operations        | sequential search | binary search |
+| ----------------- | ----------------- | ------------- |
+| search            | *N*               | *log(N)*      |
+| insert/delete     | *N*               | *N*           |
+| min/max           | *N*               | *1*           |
+| floor/ceiling     | *N*               | *log(N)*      |
+| rank              | *N*               | *log(N)*      |
+| select            | *N*               | *log(N)*      |
+| ordered iteration | *N * log(N)*      | *N*           |
