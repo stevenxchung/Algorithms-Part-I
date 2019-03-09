@@ -1,5 +1,6 @@
 // Decimal dominants
 // Pseudo-code
+
 public class DecimalDominants {
   // Find occurrences
   public static int findOccurrences(int[] arr) {
@@ -31,8 +32,8 @@ public class DecimalDominants {
     return matches;
   }
 
+  // Test
   public static void main(String[] args) {
-    // Test
     DecimalDominants obj = new DecimalDominants();
     int[] arr = new int[] {1, 2, 3, 4, 5};
     System.out.println("There are " + findOccurrences(arr) + " occurrences!");
