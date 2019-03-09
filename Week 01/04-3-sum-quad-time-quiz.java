@@ -2,7 +2,7 @@
 
 public class FindTriplet {
 
-	boolean findTriple(int nums[], int size, int target) {
+	public boolean findTriple(int nums[], int size, int target) {
 		// First
 		for (int i = 0; i < size - 2; i++) {
 			// Second element

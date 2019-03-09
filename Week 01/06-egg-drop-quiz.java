@@ -4,7 +4,6 @@
 import java.util.Random;
 
 public class EggDrop {
-
   // From java.util.random
   private static int getRandomNumberInRange(int min, int max) {
 		if (min >= max) {
@@ -14,7 +13,7 @@ public class EggDrop {
 		return r.nextInt((max - min) + 1) + min;
 	}
 
-	boolean eggDrop(int floor, int breakPoint) {
+	public boolean eggDrop(int floor, int breakPoint) {
 		// Egg does break
     if (floor >= breakPoint) {
       System.out.print("Breaks! (floor=" + floor + " >= T=" + breakPoint + ")");
@@ -25,7 +24,7 @@ public class EggDrop {
 		return false;
 	}
 
-	// Test function
+	// Test
 	public static void main(String[] args) {
 		EggDrop obj = new EggDrop();
 		int floor = getRandomNumberInRange(1, 100);

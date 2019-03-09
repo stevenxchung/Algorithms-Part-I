@@ -1,9 +1,8 @@
 // Search in a bitonic array
 
 public class FindBit {
-
-	boolean findBit(int nums[], int size, int key) {
-		// First
+	// Returns true if bit is found
+	public boolean findBit(int nums[], int size, int key) {
     for (int k = 0; k < size; k++) {
       if (nums[k] == key) {
         System.out.print("Key: " + nums[k]);
