@@ -27,8 +27,8 @@ public class TaxicabNumbers {
     return taxiNum;
   }
 
+  // Test
   public static void main(String[] args) {
-    // Test
     int n = 5;
     TaxicabNumbers obj = new TaxicabNumbers();
     System.out.println("Iteration no. " + n + " has a taxicab number of " + obj.taxicabNumbers(5));
