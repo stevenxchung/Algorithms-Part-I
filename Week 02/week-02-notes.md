@@ -2,7 +2,7 @@
 
 > We consider two fundamental data types for storing collections of objects: the stack and the queue. We implement each using either a singly-linked list or a resizing array. We introduce two advanced Java features—generics and iterators—that simplify client code. Finally, we consider various applications of stacks and queues ranging from parsing arithmetic expressions to simulating queueing systems.
 
-### Stacks and queues
+### Stacks and Queues
 * There are some fundamental data types:
   * Value: collection of objects
   * Operations: *insert, remove, iterate*, test if empty
@@ -100,7 +100,7 @@ public String pop() {
   return item;
 }
 ```
-### Resizing arrays
+### Resizing Arrays
 * Problem: looking back at our stack array implementation, we require the client to provide capacity when we need to know how to grow and shrink the array
 * If array is full, create a new array of twice the size:
 ``` java
@@ -380,7 +380,7 @@ public class Stack<Item> implements Iterable<Item> {
 
 > We introduce the sorting problem and Java's Comparable interface. We study two elementary sorting methods (selection sort and insertion sort) and a variation of one of them (shellsort). We also consider two algorithms for uniformly shuffling an array. We conclude with an application of sorting to computing the convex hull via the Graham scan algorithm.
 
-### Selection sort
+### Selection Sort
 * Start out with an unsorted array and in the ith iteration we go through the array to try to find the smallest remaining entry
 * Scans from left to right and tries to find the smallest to swap
 
