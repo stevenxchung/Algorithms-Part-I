@@ -84,7 +84,7 @@ private static void sort(Comparable[] a, Comparable[] aux, int lo, int mid, int 
 }
 ```
 
-### Bottom-up mergesort
+### Bottom-up Mergesort
 * Although mergesort is easy to understand as recursive program, bottom-up version has no recursion:
   * Pass through array, merging sub-arrays of size 1
   * Repeat for sub-arrays of size 2, 4, 8, 16, ...
@@ -110,7 +110,7 @@ public class MergeBU {
 }
 ```
 
-### Sort complexity
+### Sort Complexity
 * Computational complexity is a framework to study efficiency of algorithms for solving a particular problem X
 * There are several thing we care about when studying complexity:
   * Model of computation - allowable operations
@@ -299,7 +299,7 @@ public static Comparable select(Comparable[] a, int k) {
 
 * Quick-select takes *linear-time* on average
 
-### Duplicate keys
+### Duplicate Keys
 * Mergesort with duplicate keys always took between *(1/2) * n * log(n)* and *n * log(n)* compares
 * Quicksort with duplicate keys goes quadratic unless partitioning stops on equal keys
 * We want to partition array into three parts such that:
@@ -337,7 +337,7 @@ private static void sort(Comparable[] a, int lo, int hi) {
 
 * Randomized quicksort with three-way partitioning reduces running time from linearithmic to linear in broad class of applications
 
-### System sorts
+### System Sorts
 * Java has a *sort()* method which:
   * Has a different method for each primitive type
   * Has a method for data types that implement Comparable
