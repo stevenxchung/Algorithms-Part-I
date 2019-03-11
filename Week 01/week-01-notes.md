@@ -10,7 +10,7 @@
 * Find a way to address the problem
 * Iterate until satisfied
 
-### Dynamic connectivity
+### Dynamic Connectivity
 * Given a set of N objects
   * Union command: connect two objects
   * Find/connected query: is there a path connecting the two objects?
@@ -126,7 +126,7 @@ public class QuickUnionUF {
   * Trees can get tall
   * Find too expensive (could be N array accesses)
 
-### Quick-union improvements
+### Quick-union Improvements
 * *Weighted* quick-union improves quick-union by:
   * Modifying quick-union to avoid tall trees
   * Keeping track of size of each tree (number of objects)
@@ -203,7 +203,7 @@ private int root (int i) {
   * Experiments must be reproducible
   * Hypotheses must be falsifiable
 
-### Experimental algorithmics
+### Experimental Algorithmics
 * Observing what is happening to the run-time of our programs as we vary input size gives us a way to predict performance
 * System independent effects:
   * Algorithm
@@ -217,13 +217,13 @@ private int root (int i) {
 * Good news:
   * Much easier and cheaper than other sciences
 
-### Mathematical models
+### Mathematical Models
 * Although we could observe the run-time of our programs, it does not help us understand what our algorithms are doing
 * By looking at some basic operation as a proxy for running time we can come up with a general run-time of our operation
 * Once we have an estimate we can ignore lower order terms (tilde notation)
 * We can estimate a discrete sum through discrete mathematics or calculus
 
-### Order-of-growth classifications
+### Order-of-growth Classifications
 * There are only a small set of functions we care about regarding performance:
   * log(n) - Fast
   * n - OK
@@ -234,7 +234,7 @@ private int root (int i) {
 * We try the best we can to make sure an algorithm is not quadratic or cubic
 
 
-### Binary search: Java implementation
+### Binary Search: Java implementation
 * Below is a Java implementation of binary search which takes logarithmic time to complete:
 ```java
 public static int binarySearch(int[] a, int key) {
@@ -253,7 +253,7 @@ public static int binarySearch(int[] a, int key) {
 }
 ```
 
-### Types of analysis
+### Types of Analysis
 * There are different ways of analyzing the algorithm depending on the input, this breaks down algorithm run-time into best case, average case, and worst case:
   * Best case is determined by the "easiest" input and provides a goal for all inputs
   * Worse case is determined by the "hardest" input and provides a guarantee for all inputs
