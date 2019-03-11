@@ -1,6 +1,6 @@
 ## Week 3: Mergesort
 
-We study the mergesort algorithm and show that it guarantees to sort any array of nn items with at most *n * log(n)* compares. We also consider a non-recursive, bottom-up version. We prove that any compare-based sorting algorithm must make at least ∼*n * log(n)* compares in the worst case. We discuss using different orderings for the objects that we are sorting and the related concept of stability.
+> We study the mergesort algorithm and show that it guarantees to sort any array of nn items with at most *n * log(n)* compares. We also consider a non-recursive, bottom-up version. We prove that any compare-based sorting algorithm must make at least ∼*n * log(n)* compares in the worst case. We discuss using different orderings for the objects that we are sorting and the related concept of stability.
 
 ### Mergesort
 * Mergesort could be broken down into parts:
@@ -168,15 +168,15 @@ private static void exch(Object[] a; int i; int j) {
 
 ## Week 3: Quicksort
 
-We introduce and implement the randomized quicksort algorithm and analyze its performance. We also consider randomized quick-select, a quicksort variant which finds the kth smallest item in linear time. Finally, consider 3-way quicksort, a variant of quicksort that works especially well in the presence of duplicate keys.
+> We introduce and implement the randomized quicksort algorithm and analyze its performance. We also consider randomized quick-select, a quicksort variant which finds the kth smallest item in linear time. Finally, consider 3-way quicksort, a variant of quicksort that works especially well in the presence of duplicate keys.
 
 ### Quicksort
 * Quicksort is a recursive method which works in several steps:
   * Shuffle the array
   * Partition so that, for some j:
-    * entry a[j] is in place
-    * no larger entry to the left of j
-    * no smaller entry to the right of j
+    * Entry a[j] is in place
+    * No larger entry to the left of j
+    * No smaller entry to the right of j
   * Sort each piece recursively
 
 * The code for partitioning is as follows:
