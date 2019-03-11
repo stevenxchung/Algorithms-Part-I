@@ -62,7 +62,7 @@ public class UnorderedMaxPQ<Key extends Comparable<key>> {
 }
 ```
 
-### Binary heaps
+### Binary Heaps
 * A binary heap is based on the binary tree (empty or node with lines to left and right binary trees)
 * Here are some characteristics of trees:
   * A complete tree is perfectly balanced except for bottom level
@@ -140,7 +140,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
   }
 }
 ```
-### Heap sort
+### Heap Sort
 * Here's the basic idea of heap sort:
   * Create max-heap with all *N* keys
   * Repeatedly remove the maximum key
@@ -187,7 +187,7 @@ public class Heap {
 
 > We define an API for *symbol tables* (also known as *associative arrays*) and describe two elementary implementations using a sorted array (binary search) and an unordered list (sequential search). When the keys are Comparable, we define an extended API that includes the additional methods min, max floor, ceiling, rank, and select. To develop an efficient implementation of this API, we study the *binary search tree* data structure and analyze its performance.
 
-### Symbol table API
+### Symbol Table API
 * Symbol tables are key-value pair abstractions:
   * **Insert** a value with a specified key
   * Given a key, **search** for the corresponding value
@@ -208,7 +208,7 @@ public class Heap {
   * Mutable in Java: StringBuilder, java.net.URL, arrays, ...
 * Lastly, all java classes inherit a method `equals()`
 
-### Elementary implementations
+### Elementary Implementations
 * One elementary implementation is sequential search in a linked list:
   * Data structure - maintain an unordered linked list of key-value pairs
   * Search - scan through all keys until match is found
@@ -249,7 +249,7 @@ private int rank(Key key) {
 }
 ```
 
-### Ordered operations
+### Ordered Operations
 * When keys are comparable we can put them in order, we saw that we can use binary search to get an efficient symbol table implementation
 * Below is a summary of sequential search versus binary search for the following operations:
   * Search
@@ -271,7 +271,7 @@ private int rank(Key key) {
 | select            | *N*               | *log(N)*      |
 | ordered iteration | *N * log(N)*      | *N*           |
 
-### Binary search tree
+### Binary Search Tree
 * A BST (Binary Search Tree) is a **binary tree** in **symmetric order**
 * A binary tree tree is either:
   * Empty
