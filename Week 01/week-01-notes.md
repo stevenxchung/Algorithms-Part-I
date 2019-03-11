@@ -253,7 +253,7 @@ public static int binarySearch(int[] a, int key) {
 }
 ```
 
-### Types of Analysis
+### Types of analysis
 * There are different ways of analyzing the algorithm depending on the input, this breaks down algorithm run-time into best case, average case, and worst case:
   * Best case is determined by the "easiest" input and provides a goal for all inputs
   * Worse case is determined by the "hardest" input and provides a guarantee for all inputs
