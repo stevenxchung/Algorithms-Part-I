@@ -16,7 +16,7 @@ public class InorderTraversal {
   }
 
   // Returns value of current node
-  public int InorderTraversal(Node n) {
+  public int inorderTraversal(Node n) {
     // Breaks if input is null
     if (n == null) {
       return -1;
@@ -56,6 +56,6 @@ public class InorderTraversal {
   // Test
   public static void main(String[] args) {
     InorderTraversal obj = new InorderTraversal();
-    System.out.println(obj.InorderTraversal(null));
+    System.out.println(obj.inorderTraversal(null));
   }
 }
