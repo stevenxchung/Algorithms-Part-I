@@ -11,10 +11,10 @@
 * Iterate until satisfied
 
 ### Dynamic Connectivity
-* Given a set of N objects
+* Given a set of *N* objects
   * Union command: connect two objects
   * Find/connected query: is there a path connecting the two objects?
-* When programming, it is convenient to name to name objects 0 to N-1
+* When programming, it is convenient to name to name objects 0 to *N - 1*
   * Use integers as array index
   * Suppress details not relevant to union-find
 * Find query will check if two objects are in the same component
@@ -50,10 +50,10 @@ public static void main(String[] args) {
 
 ### Quick-find
 * Also called an eager algorithm, has a data structure consisting of:
-  * Integer array id[] of size N
-  * p and q are connected if and only if they have the same id
-* Find operation becomes: check if p and q have the same id
-* Union operation is a bit trickier: to merge components containing p and q, change all entries whose id equals id[p] to id[q]
+  * Integer array *id[]* of size *N*
+  * *p* and *q* are connected if and only if they have the same id
+* Find operation becomes: check if *p* and *q* have the same id
+* Union operation is a bit trickier: to merge components containing *p* and *q*, change all entries whose id equals *id[p]* to *id[q]*
 
 * The java implementation for quick find might look something like this:
 ```java
@@ -81,15 +81,15 @@ public class QuickFindUF {
 }
 ```
 
-* However, quick-find is too slow, it would take N^2 array accesses to process sequence of N union commands on N objects
+* However, quick-find is too slow, it would take *N^2* array accesses to process sequence of *N* union commands on *N* objects
 
 ### Quick-union
 * Also known as lazy approach, has data structure consisting of:
-  * Integer array id[] of size N
-  * id[i] is parent of i
-  * Root of i is id[id[id[...id[i]...]]]
-* Find: check if p and q have the same root
-* Union: Merge components containing p and q, set the id of p's root to the id of q's root
+  * Integer array *id[]* of size *N*
+  * *id[i]* is parent of *i*
+  * Root of *i* is *id[id[id[...id[i]...]]]*
+* Find: check if *p* and *q* have the same root
+* Union: Merge components containing *p* and *q*, set the id of *p*'s root to the id of *q*'s root
 
 * Implementation in java:
 ```java
@@ -124,21 +124,21 @@ public class QuickUnionUF {
 
 * Unfortunately, quick-union is also too slow:
   * Trees can get tall
-  * Find too expensive (could be N array accesses)
+  * Find too expensive (could be *N* array accesses)
 
 ### Quick-union Improvements
 * *Weighted* quick-union improves quick-union by:
   * Modifying quick-union to avoid tall trees
   * Keeping track of size of each tree (number of objects)
   * Balance by linking root of smaller tree to root of larger tree
-* Data structure for weighted quick-union is the same as quick-union but we maintain extra array sz[i] to count number of objects in the tree rooted at i
+* Data structure for weighted quick-union is the same as quick-union but we maintain extra array *sz[i]* to count number of objects in the tree rooted at *i*
 
 * Find is identical to quick-union:
 ```java
 return root(p) == root(q);
 ```
 
-* Union will link root of smaller tree to root of larger tree and update the sz[] array:
+* Union will link root of smaller tree to root of larger tree and update the *sz[]* array:
 ```java
 int i = root(p);
 int j = root(q);
@@ -156,11 +156,11 @@ else  {
 ```
 
 * This weighted improvement allows the following:
-  * Find takes time proportional to the depth of p and q
+  * Find takes time proportional to the depth of *p* and *q*
   * Union takes constant time, given roots
 
 * Another improvement is to implement *path compression*:
-  * Just after computing the root of p, set the id of each examined node to point to that root
+  * Just after computing the root of *p*, set the id of each examined node to point to that root
 
 * The java implementation of path compression is very simple, just add one line of code:
 ```java
@@ -176,8 +176,8 @@ private int root (int i) {
 * Friedman and Sachs proved that there is no linear-time algorithm for the union-find problem but weighted quick-union with path compression gets us pretty close!
 
 ### Percolation
-* N-by-N grid of sites
-* Each site is open with probability p (or blocked with probability 1-p)
+* *N-by-N* grid of sites
+* Each site is open with probability *p* (or blocked with probability *1 - p*)
 * System percolates if and only if top and bottom are connected by open sites
 
 ## Week 1: Analysis of Algorithms
@@ -225,12 +225,12 @@ private int root (int i) {
 
 ### Order-of-growth Classifications
 * There are only a small set of functions we care about regarding performance:
-  * log(n) - Fast
-  * n - OK
-  * n * log(n) - OK
-  * n^2 - Slow
-  * n^3 - Slower
-  * 2^n - Slowest
+  * *log(N)* - Fast
+  * *N* - OK
+  * *N * log(N)* - OK
+  * *N^2* - Slow
+  * *N^3* - Slower
+  * *2^N* - Slowest
 * We try the best we can to make sure an algorithm is not quadratic or cubic
 
 
@@ -269,7 +269,7 @@ public static int binarySearch(int[] a, int key) {
 
 ### Memory
 * Although run-time costs of operations are important, memory cost is also important
-* Let's look at an example of memory cost in Java, how much memory does this union-find function use as a function of N? *About 8N bytes*
+* Let's look at an example of memory cost in Java, how much memory does this union-find function use as a function of *N*? *About 8N bytes*
 ```java
 public class WeightedQuickUnionUF { // 16 bytes (object overhead)
   private int[] id; // 8 + (4N + 24) each reference + int[] array
