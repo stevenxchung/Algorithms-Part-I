@@ -141,3 +141,102 @@ private Node put(Node h, Key key, Value val) {
 * All internal nodes (besides root) have between *M / 2* and *M - 1* links
 * In practice number of probes is at most four
 * To optimize a B-tree, always keep root page in memory
+
+## Week 5: Geometric Applications of BSTs
+
+> We start with 1D and 2D range searching, where the goal is to find all points in a given 1D or 2D interval. To accomplish this, we consider kd-trees, a natural generalization of BSTs when the keys are points in the plane (or higher dimensions). We also consider intersection problems, where the goal is to find all intersections among a set of line segments or rectangles.
+
+### 1D Range Search
+* We will look at intersections among geometric objects where BSTs are the basis for solving these problems efficiently
+* A 1D range search is an extension of ordered symbol table, here are some operations:
+  * Insert key-value pair
+  * Search for key *k*
+  * Delete key *k*
+  * **Range search**: find all keys between *k1* and *k2*
+  * **Range count**: number of keys between *k1* and *k2*
+* An application for 1D range search is using it for database queries
+* A geometric interpretation of 1D range search is:
+  * Keys are a point on a **line**
+  * Find/count points in a given **1D interval**
+
+### Line Segment Intersection
+* Generally given *N* horizontal and vertical line segments, find all intersections
+* A brute force method for counting each intersection will produce a quadratic algorithm (not practical or scalable)
+* A better way to find the intersections between two pairs of lines is to implement the sweep-line algorithm:
+  * Sweep a vertical line from left to right
+  * x-coordinates define events
+  * h-segment (left endpoint): insert y-coordinate into BST
+  * h-segment (right endpoint): remove y-coordinate into BST
+  * v-segment: range search for interval of y-endpoints
+* The sweep-line algorithm takes time proportional to *N * log(N + R)* to fin all *R* intersections among *N* orthogonal line segments
+
+* In general the run-time of each operation for sweep-line is as follows:
+  * Put x-coordinates on a PQ (or sort): *N * log(N)*
+  * Insert y-coordinates into BST: *N * log(N)*
+  * Delete y-coordinates from BST: *N * log(N)*
+  * Range searches in BST: *N * log(N + R)*
+* In summary, using the sweep-line algorithm reduces 2D orthogonal line segment intersection search to 1D range search
+
+### KD-trees
+* There exist an extension of the 1D range search known as 2D orthogonal range search:
+  * Insert a 2D key
+  * Delete a 2D key
+  * Search for a 2D key
+  * **Range search**: find all keys that lie in a 2D range
+  * **Range count**: number of keys that lie in a 2D range
+* The geometric interpretation of the 2D orthogonal range search includes:
+  * Keys which are a point in the **plane**
+  * Operations to find/count the points in a given **h-v rectangle** (axis-aligned)
+* In grids, we want to use a *sqrt(N) * sqrt(N)* size square
+* However, the main challenge with the 2D orthogonal range search is the problem of **clustering**:
+  * Lists are too long, even though average length is short
+  * Need data structure that adapts gracefully to data
+
+* How to address clustering? Use 2D-tree (binary search tree) to find all points in a query axis-aligned rectangle:
+  * Check if point in node lies in given rectangle
+  * Recursively search left/bottom (if any could fall in rectangle)
+  * Recursively search right/top (if any could fall in rectangle)
+* Typical run-time for 2D-tree is *R + log(N)*
+* Worst case for a balanced tree is *R + sqrt(N)*
+
+* Similarly, to find the nearest neighbor in a 2D-tree:
+  * Check distance from point in node to query point
+  * Recursively search left/bottom (if any could fall in rectangle)
+  * Recursively search right/top (if any could fall in rectangle)
+  * Organize method so that it begins by searching for query point
+* Typical run-time for 2D-tree when finding nearest neighbor is *log(N)*
+* Worst case for a balanced tree when finding nearest neighbor is *N*
+
+* So what is a KD-tree? It's simply an extension of what we have already seen before:
+  * We want to recursively partition k-dimensional space into two half-spaces
+  * To implement a KD-tree we use a BST but cycle through dimensions with 2D trees
+
+### Interval Search
+* 1D interval search is a data structure to hold set of overlapping intervals
+* Some operations include:
+  * Insert an interval *(lo, hi)*
+  * Search for an interval *(lo, hi)*
+  * Delete an interval *(lo, hi)*
+  * **Interval intersection query**: given an interval *(lo, hi)*, find all intervals (or one interval) in data structure that intersects *(lo, hi)*
+* For interval search trees we want to:
+  * Create BST where each node stores an interval *(lo, hi)*
+  * Use the left endpoint as BST **key**
+  * Store **max endpoint** in subtree rooted at node
+* To get performance guarantee we want use a **red-black BST**
+
+### Rectangle Intersection
+* With KD-trees we can find all intersections among a set of *N* orthogonal rectangles
+* The rectangle intersection problem became a very important problem when building computers since we needed a way to figure out how to draw on a computer, particularly microprocessor design became a **geometric** problem
+* Since processing power doubles every 18 months (Moore's Law), we need to use linearithmic algorithm to sustain Moore's Law
+
+* To solve the orthogonal rectangle search we implement the sweep-line algorithm but slightly modified for rectangles (interval search instead of range search):
+  * x-coordinates of left and right endpoints define events
+  * Maintain set of rectangles that intersect the sweep line in an interval search tree (using y-intervals of rectangle)
+  * Left endpoint: interval search for y-interval of rectangle; insert y-interval
+  * Right endpoint: remove y-interval
+
+* In general the run-time of each operation for sweep-line for orthogonal rectangles is as follows:
+  * Put x-coordinates on a PQ (or sort): *N * log(N)*
+  * Insert y-coordinates into ST: *N * log(N)*
+  * Delete y-coordinates from ST: *N * log(N)*
+  * Interval searches for y-intervals: *N * log(N) + R * log(N)*
