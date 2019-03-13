@@ -56,7 +56,7 @@ public class LinkedStackOfStrings {
 ```
 
 * Every operation takes constant time in the worst case
-* A stack with N items uses ~40 N bytes
+* A stack with *N* items uses ~40 *N* bytes
 
 * What if we wanted to implement a stack with an array?
 ```java
@@ -125,11 +125,11 @@ private void resize(int capacity) {
 ```
 
 * To shrink the array we would implement the logic:
-  * push(): double size of array s[] when array is full
-  * pop(): havle the size of array s[] when array is one-half full
-* This sequence is too expensive in the worst case however since each operation takes N time, instead it is more efficient to implement the following:
-   * push(): double size of array s[] when array is full
-   * pop(): havle the size of array s[] when array is *one-quarter* full
+  * `push()`: double size of array *s[]* when array is full
+  * `pop()`: halve the size of array *s[]* when array is one-half full
+* This sequence is too expensive in the worst case however since each operation takes *N* time, instead it is more efficient to implement the following:
+   * `push()`: double size of array *s[]* when array is full
+   * `pop()`: halve the size of array *s[]* when array is *one-quarter* full
 ``` java
 public String pop() {
   String item = s[--N];
@@ -414,7 +414,7 @@ public class Selection {
 * Linear number of exchanges
 
 ### Insertion Sort
-* Move an index i from left to right as before but now move the element into position among the other elements to the left (can implement this least-to-greatest or greatest-to-least)
+* Move an index *i* from left to right as before but now move the element into position among the other elements to the left (can implement this least-to-greatest or greatest-to-least)
 
 * The implementation for insertion sort in Java is as follows:
 ```java
@@ -449,7 +449,7 @@ public class Insertion {
 ### Shellsort
 * One of the oldest sorting methods invented by Shell in 1959
 * The idea of shellsort is to move entries more than one position at a time by *h-sorting* the array
-* Very similar to insertion sort except when going back left to check order we go back by h and not index i
+* Very similar to insertion sort except when going back left to check order we go back by *h* and not index *i*
 * A *g-sorted* array remains *g-sorted* after *h-sorting* it
 
 
@@ -485,7 +485,7 @@ public class Shell {
 }
 ```
 
-* In general, the worst-case number of compares used by shellsort with the 3x + 1 increments is about *O(n^3/2)*, however in practice the run-time is much less but there is no known model of that
+* In general, the worst-case number of compares used by shellsort with the *3x + 1* increments is about *O(n^3/2)*, however in practice the run-time is much less but there is no known model of that
 * Why use shellsort?
   * Fast unless array size is huge
   * Tiny, fixed footprint for code (used in embedded systems)
@@ -493,7 +493,7 @@ public class Shell {
 
 ### Shuffling
 * How would we shuffle a deck of cards in linear-time such that the result is a uniformly random permutation?
-  * Use Knuth's shuffling algorithm which picks a random integer r between 0 and i and applies that to shuffle the deck on each iteration
+  * Use Knuth's shuffling algorithm which picks a random integer *r* between 0 and *i* and applies that to shuffle the deck on each iteration
 
 * The implementation of Knuth's shuffling algorithm in Java:
 ```java
@@ -516,8 +516,8 @@ public class StdRandom {
     * Can transverse convex hull only by making counterclockwise turns
     * The vertices of convex hull appear in increasing order of polar angle
 * From what we know about the geometric properties of the convex hull we can apply Graham scan:
-  * Choose point p with smallest y-coordinate
-  * Sort points by polar angle with p
+  * Choose point *p* with smallest y-coordinate
+  * Sort points by polar angle with *p*
   * Consider points in order, discard unless it can create a CCW turn
 
 * Below is a sample implementation of Graham scan in Java:
