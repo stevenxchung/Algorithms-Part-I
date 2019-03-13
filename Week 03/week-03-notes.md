@@ -1,6 +1,6 @@
 ## Week 3: Mergesort
 
-> We study the mergesort algorithm and show that it guarantees to sort any array of nn items with at most *n * log(n)* compares. We also consider a non-recursive, bottom-up version. We prove that any compare-based sorting algorithm must make at least ∼*n * log(n)* compares in the worst case. We discuss using different orderings for the objects that we are sorting and the related concept of stability.
+> We study the mergesort algorithm and show that it guarantees to sort any array of *N * N* items with at most *N * log(N)* compares. We also consider a non-recursive, bottom-up version. We prove that any compare-based sorting algorithm must make at least ∼*N * log(N)* compares in the worst case. We discuss using different orderings for the objects that we are sorting and the related concept of stability.
 
 ### Mergesort
 * Mergesort could be broken down into parts:
@@ -63,7 +63,7 @@ public class Merge {
 * The run-time estimate of mergesort is 10^8 compares/second
 * A supercomputer executes 10^12 compares/second
 * The lesson learned is that a good algorithm is better than investing in a supercomputer
-* Mergesort uses at most *n * log(n)* compares and about *n * log(n)* array accesses to sort any array of size *n*
+* Mergesort uses at most *N * log(N)* compares and about *N * log(N)* array accesses to sort any array of size *N*
 
 * One improvement we could make is using insertion sort as part of our sort procedure:
 ```java
@@ -122,8 +122,8 @@ public class MergeBU {
 * Here is an example with sorting:
   * Model of computation: decision tree
   * Cost model: # compares
-  * Upper bound: ~*n * log(n)* (mergesort)
-  * Lower bound: ~*n * log(n)*
+  * Upper bound: ~*N * log(N)* (mergesort)
+  * Lower bound: ~*N * log(N)*
   * Optimal algorithm: mergesort
 
 * Mergesort is optimal with respect to # compares but not optimal with respect to space usage
@@ -168,15 +168,15 @@ private static void exch(Object[] a; int i; int j) {
 
 ## Week 3: Quicksort
 
-> We introduce and implement the randomized quicksort algorithm and analyze its performance. We also consider randomized quick-select, a quicksort variant which finds the kth smallest item in linear time. Finally, consider 3-way quicksort, a variant of quicksort that works especially well in the presence of duplicate keys.
+> We introduce and implement the randomized quicksort algorithm and analyze its performance. We also consider randomized quick-select, a quicksort variant which finds the *kth* smallest item in linear time. Finally, consider 3-way quicksort, a variant of quicksort that works especially well in the presence of duplicate keys.
 
 ### Quicksort
 * Quicksort is a recursive method which works in several steps:
   * Shuffle the array
-  * Partition so that, for some j:
-    * Entry a[j] is in place
-    * No larger entry to the left of j
-    * No smaller entry to the right of j
+  * Partition so that, for some *j*:
+    * Entry *a[j]* is in place
+    * No larger entry to the left of *j*
+    * No smaller entry to the right of *j*
   * Sort each piece recursively
 
 * The code for partitioning is as follows:
@@ -233,9 +233,9 @@ public class Quick {
 ```
 
 * Shuffling is needed for performance guarantee, this preserves randomness
-* Best case number of compares for quicksort is ~*n * log(n)*
-* Worst case number of compares for quicksort is ~*(1/2) * n^2*
-* The average number of compares for quicksort is ~*2n * log(n)*
+* Best case number of compares for quicksort is ~*N * log(N)*
+* Worst case number of compares for quicksort is ~*(1/2) * N^2*
+* The average number of compares for quicksort is ~*2*N * log(N)*
 * On average, quicksort does about 40% more compares than mergesort but faster than mergesort due to less data movement
 * Quicksort is an *in-place* sorting algorithm
 * Quicksort is *not stable*
@@ -272,11 +272,11 @@ public static void sort(Comparable[] a, int lo, int hi) {
 ### Selection
 * Similar to quicksort we want a method to quickly select a particular item in a set
 * The idea for selection is to partition an array so that:
-  * Entry a[j] is in place
-  * No larger entry to the left of j
-  * No smaller entry to the right of j
-* Repeat in one sub-array, depending on j
-* Finished when j equals k
+  * Entry* a[j]* is in place
+  * No larger entry to the left of *j*
+  * No smaller entry to the right of *j*
+* Repeat in one sub-array, depending on *j*
+* Finished when *j* equals *k*
 
 * An implementation of quick-select is as follows:
 ```java
@@ -300,7 +300,7 @@ public static Comparable select(Comparable[] a, int k) {
 * Quick-select takes *linear-time* on average
 
 ### Duplicate Keys
-* Mergesort with duplicate keys always took between *(1/2) * n * log(n)* and *n * log(n)* compares
+* Mergesort with duplicate keys always took between *(1/2) * N * log(N)* and *N * log(N)* compares
 * Quicksort with duplicate keys goes quadratic unless partitioning stops on equal keys
 * We want to partition array into three parts such that:
   * Entries between *a* and *b* are equal to partition item *c*
@@ -338,7 +338,7 @@ private static void sort(Comparable[] a, int lo, int hi) {
 * Randomized quicksort with three-way partitioning reduces running time from linearithmic to linear in broad class of applications
 
 ### System Sorts
-* Java has a *sort()* method which:
+* Java has a `sort()` method which:
   * Has a different method for each primitive type
   * Has a method for data types that implement Comparable
   * Has a method that uses a Comparator
