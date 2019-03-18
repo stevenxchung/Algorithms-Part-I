@@ -37,3 +37,72 @@ public final class Integer {
   * If field is null, return `0`
   * If field is a reference type, use `hashCode()`
   * If field is an array, apply to each entry
+
+### Separate Chaining
+* Separate chaining is a collision red solution strategy that makes use of elementary linked list
+* During a collision, two distinct keys hashing to same index:
+  * Birthday problem - can't avoid collisions unless you have a ridiculous (quadratic) amount of memory
+  * Coupon collector + load balancing - collisions will be evenly distributed
+* How do we deal with collisions efficiently?
+  * Use an array of *M < N* linked lists:
+    * Hash: map key to integer *i* between *0* and *M - 1*
+    * Insert: put at front of *ith* chain (if not already there)
+    * Search: need to search only *ith* chain
+
+* Separate chaining implementation in Java is as follows:
+```java
+public class SeparateChainHashST<Key, Value> {
+  // NOTE: Array doubling and halving code omitted
+  private int M = 97; // Number of chains
+  private Node[] st = new Node[M]; // Array of chains
+
+  private static class Node {
+    private Object key; // No generic array creation
+    private Object val; // Declare key and value of type Object
+    private Node next;
+    // ...
+  }
+
+  public Value get(Key key) {
+    int i = hash(key);
+    for (Node x = st[i]; x != null; x = x.next) {
+      if (key.equals(x.key)) {
+        return (Value) x.val;
+      }
+    }
+    return null;
+  }
+}
+```
+
+* For insertion the code becomes:
+```java
+public class SeparateChainHashST<Key, Value> {
+  // NOTE: Array doubling and halving code omitted
+  private int M = 97; // Number of chains
+  private Node[] st = new Node[M]; // Array of chains
+
+  private static class Node {
+    private Object key; // No generic array creation
+    private Object val; // Declare key and value of type Object
+    private Node next;
+    // ...
+  }
+
+  public void put(Key key, Value val) {
+    int i = hash(key);
+    for (Node x = st[i]; x != null; x = x.next) {
+      if (key.equals(x.key)) {
+        x.val = val;
+        return;
+      }
+    }
+    st[i] = new Node(key, val, st[i]);
+  }
+}
+```
+
+* The number of probes (`equals()` and `hashCode()`) for search/insert is proportional to *N / M*:
+  * *M* too large -> too many empty chains
+  * *M* too small -> chains too long
+  * Typical choice: *M ~ N / 5* -> constant-time operation
