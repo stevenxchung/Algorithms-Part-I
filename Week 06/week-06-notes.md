@@ -160,3 +160,42 @@ public class LinearProbingHashST<Key, Value> {
   * *M* too large -> too many empty array entries
   * *M* too small -> search time blows up
   * Typical choice: *a ~ N / M ~ 1/2* -> constant-time operation
+
+### Hash Table Context
+* For `String` `hashCode()` in Java 1.1:
+  * Only examine 8-9 evenly spaced characters for long strings
+  * The benefit is saving time in performing arithmetic
+
+* An implementation of `hashCode()` in Java:
+```java
+public int hashCode() {
+  int hash = 0;
+  int skip = Math.max(1, length() / 8);
+  for (int i = 0; i < length(); i += skip) {
+    hash = s[i] + (37 * hash);
+  }
+  return hash;
+}
+```
+
+* However, there was great potential for bad collision patterns
+
+* Separate chaining versus linear probing:
+  * **Separate chaining**:
+    * Easier to implement delete
+    * Performance degrades gracefully
+    * Clustering less sensitive to poorly-designed hash function
+  * **Linear probing**:
+    * Less wasted space
+    * Better cache performance
+
+* Hash tables versus balanced search trees:
+  * **Hash tables**:
+    * Simpler to code
+    * No effective alternative for unordered keys
+    * Faster for simple keys (a few arithmetic operations versus *log(N)* compares)
+    * Better system support in Java for strings (e.g. cache hash code)
+  * **Balanced search trees**:
+    * Stronger performance guarantee
+    * Support for ordered ST operations
+    * Easier to implement `compareTo()` correctly than `equals()` and `hashCode()`
