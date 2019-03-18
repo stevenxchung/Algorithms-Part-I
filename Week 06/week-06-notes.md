@@ -106,3 +106,57 @@ public class SeparateChainHashST<Key, Value> {
   * *M* too large -> too many empty chains
   * *M* too small -> chains too long
   * Typical choice: *M ~ N / 5* -> constant-time operation
+
+### Linear Probing
+* Another closure resolution method is known as linear probing
+* Linear probing is also known as *open addressing* - when a new key collides, find next empty slot, and put it there
+* The methods for linear probing for hash tables is as follows:
+  * **Hash** - map key to integer *i* between *0* and *M - 1*
+  * **Insert** - put a table at index *i* if free; if not try *i + 1*, *i + 2*, etc.
+  * **Search** - search table index *i*; if occupied but no match, try *i + 1*, *i + 2*, etc.
+  * Note: array size *M* **must be** greater than number of key-value pairs *N*
+
+* The Java implementation for linear probing:
+```java
+public class LinearProbingHashST<Key, Value> {
+  // NOTE: Array doubling and halving code omitted
+  private int M = 30001;
+  private Value[] vals = (Value[]) new Object[M];
+  private Key[] keys = (Key[]) new Object[M];
+
+  private int hash(Key key) {
+    /* as before */
+  }
+
+  private void put (Key key, Value val) {
+    int i;
+    for (i = hash(key); keys[i] != null; i = (i + 1) % M) {
+      if (keys[i].equals(key)) {
+        break;
+      }
+    }
+    keys[i] = key;
+    vals[i] = val;
+  }
+
+  private Value get(Key key) {
+    for (int i = hash(key); keys[i] != null; i = (i + 1) % M) {
+      if (key.equals(keys[i])) {
+        return vals[i];
+      }
+    }
+    return null;
+  }
+}
+```
+
+* Clustering became a problem:
+  * **Cluster** - a contiguous block of items
+  * **Observation** - new keys likely to hash into middle of big clusters
+* Under uniform hashing assumption, the average of number of probes in a linear probing hash table of size *M* that contains *N = a * M* keys is:
+  * Search hit ~ *(1 / 2) * (1 + (1 / (1 - a)))*
+  * Search miss/insert ~ *(1 / 2) * (1 + (1 / (1 - a)^2))*
+* In summary, for linear probing:
+  * *M* too large -> too many empty array entries
+  * *M* too small -> search time blows up
+  * Typical choice: *a ~ N / M ~ 1/2* -> constant-time operation
