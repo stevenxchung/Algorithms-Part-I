@@ -197,5 +197,5 @@ public int hashCode() {
     * Better system support in Java for strings (e.g. cache hash code)
   * **Balanced search trees**:
     * Stronger performance guarantee
-    * Support for ordered ST operations
+    * Support for ordered ST (search tree) operations
     * Easier to implement `compareTo()` correctly than `equals()` and `hashCode()`
