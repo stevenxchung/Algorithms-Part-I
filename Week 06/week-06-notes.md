@@ -334,3 +334,78 @@ public class FileIndex {
   }
 }
 ```
+
+### Sparse Vectors
+* For nested loops the running time is *N^2*, how do we address this issue for matrices and matrix multiplication?
+  * Use symbol tables!
+* The standard representation of a vector is done using a 1D array:
+  * Constant time access to elements
+  * Space proportional to *N*
+* The symbol table representation for a vector could be as follows:
+  * Key = index, value = entry
+  * Efficient iterator
+  * Space proportional to number of non-zeroes
+
+* The implementation in java is as follows:
+```java
+public class SparseVector {
+  // HashST because order not important
+  private HashST<Integer, Double> v;
+
+  // Empty ST represents all zeros vector
+  public SparseVector() {
+    v = new HashST<Integer, Double>();
+  }
+
+  // a[i] = value
+  public void put (int i, double x) {
+    v.put(i, x);
+  }
+
+  // Return a[i]
+  public double get(int i) {
+    if (!v.contains(i)) {
+      return 0.0;
+    } else {
+      return v.get(i);
+    }
+  }
+
+  public Iterable<Integer> indices() {
+    return v.keys();
+  }
+
+  // Dot product is constant time for sparse vectors
+  public double dot(double[] that) {
+    double sum = 0.0;
+    for (int i : indices()) {
+      sum += that[i] * this.get(i);
+    }
+    return sum;
+  }
+}
+```
+
+* For 2D arrays, the standard matrix representation is:
+  * Each row of matrix is an **array**
+  * Constant time access to elements
+  * Space proportional to *N^2*
+* The sparse matrix representation is as follows:
+  * Each row of matrix is a **sparse vector**
+  * Efficient access to elements
+  * Space proportional to number of non-zeroes plus *N*
+
+* The code for 1D sparse vector just needs the following:
+```java
+// ...
+SparseVector[] a = new SparseVector[N];
+double[] x = new double[N];
+double[] b = new double[N];
+// ...
+// Initialize a[] and x[]
+// ...
+// Linear running time for sparse matrix
+for (int i = 0; i < N; i++) {
+  b[i] = a[i].dot(x);
+}
+```
