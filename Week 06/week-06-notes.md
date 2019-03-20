@@ -199,3 +199,57 @@ public int hashCode() {
     * Stronger performance guarantee
     * Support for ordered ST (search tree) operations
     * Easier to implement `compareTo()` correctly than `equals()` and `hashCode()`
+
+## Week 6: Symbol Table Applications
+
+This section will cover topics (optional) on symbol table applications including *sets*, *dictionary clients*, *indexing clients*, and *sparse vectors*
+
+### Sets
+* Mathematically, sets are a collection of distinct keys
+* To implement a set:
+  * Read in a list of words from one file
+  * Print out all words from standard input that are { in, not in } the list
+
+* An example of such implementation in the real world is a *whitelist*:
+```java
+public class WhiteList {
+  public static void main(String[] args) {
+    // Create empty set of strings
+    SET<String> set = new SET<String>();
+    // Read in whitelist
+    In in = new In(args[0]);
+    while (!in.isEmpty()) {
+      set.add(in.readString());
+    }
+    // Print words in list
+    while (!StdIn.isEmpty()) {
+      String word = StdIn.readString();
+      if (set.contains(word)) {
+        StdOut.println(word);
+      }
+    }
+  }
+}
+```
+
+* Conversely, there is also a *blacklist* implementation:
+```java
+public class BlackList {
+  public static void main(String[] args) {
+    // Create empty set of strings
+    SET<String> set = new SET<String>();
+    // Read in blacklist
+    In in = new In(args[0]);
+    while (!in.isEmpty()) {
+      set.add(in.readString());
+    }
+    // Print words not in list
+    while (!StdIn.isEmpty()) {
+      String word = StdIn.readString();
+      if (!set.contains(word)) {
+        StdOut.println(word);
+      }
+    }
+  }
+}
+```
