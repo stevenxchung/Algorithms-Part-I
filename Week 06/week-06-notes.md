@@ -296,3 +296,41 @@ public class LookupCSV {
   }
 }
 ```
+
+### Indexing Clients
+* Indexing clients refer to the file indexing problem:
+  * Our goal is to index a PC or the web
+  * Given a list of files specified, create an index so that you can efficiently find all files containing a given query string
+  * Solution: key = query string, value = set of files containing that string
+
+* Below is an example of the file indexing implementation:
+```java
+import java.io.file;
+public class FileIndex {
+  public static void main(String[] args) {
+    // Symbol table
+    ST<String, SET<File>> st = new ST<String, SET<File>>();
+
+    // List of file names from command line
+    for (String filename : args) {
+      File file = new File(filename);
+      In in = new In(file);
+      // For each word in file, add file to corresponding set
+      while (!in.isEmpty()) {
+        String key = in.readString();
+        if (!st.contains(key)) {
+          st.put(key, new SET<File>());
+        }
+        SET<File> set = st.get(key);
+        set.add(file);
+      }
+    }
+
+    // Process queries
+    while (!StdIn.isEmpty()) {
+      String query = StdIn.readString();
+      StdOut.println(st.get(query));
+    }
+  }
+}
+```
