@@ -27,7 +27,7 @@ public class DocumentSearch {
   // Test
   public static void main(String[] args) {
     DocumentSearch obj = new DocumentSearch();
-    String[] documentWords = new String[]{ "one", "two", "three"};
+    String[] documentWords = new String[]{"one", "two", "three"};
     String[] queryWords = new String[]{ "three" };
     System.out.println("The query " + queryWords[0] + " first appears at string index = " + obj.documentSearch(documentWords, queryWords));
   }
