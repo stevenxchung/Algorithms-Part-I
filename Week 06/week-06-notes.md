@@ -216,11 +216,13 @@ public class WhiteList {
   public static void main(String[] args) {
     // Create empty set of strings
     SET<String> set = new SET<String>();
+
     // Read in whitelist
     In in = new In(args[0]);
     while (!in.isEmpty()) {
       set.add(in.readString());
     }
+
     // Print words in list
     while (!StdIn.isEmpty()) {
       String word = StdIn.readString();
@@ -238,16 +240,57 @@ public class BlackList {
   public static void main(String[] args) {
     // Create empty set of strings
     SET<String> set = new SET<String>();
+
     // Read in blacklist
     In in = new In(args[0]);
     while (!in.isEmpty()) {
       set.add(in.readString());
     }
+
     // Print words not in list
     while (!StdIn.isEmpty()) {
       String word = StdIn.readString();
       if (!set.contains(word)) {
         StdOut.println(word);
+      }
+    }
+  }
+}
+```
+
+### Dictionary Clients
+* Dictionary clients refer to the dictionary lookup problem:
+  * A comma-separated value (CSV) file
+  * Key field
+  * Value field
+* Example of such a problem in practice include DNS lookups, amino acids, and class lists
+
+* Below is an example of a dictionary lookup in a CSV file:
+```java
+public class LookupCSV {
+  public static void main(String[] args) {
+    // Process input file
+    In in = new In(args[0]);
+    int keyField = Integer.parseInt(args[1]);
+    int valField = Integer.parseInt(args[2]);
+
+    // Build symbol table
+    ST<String, String> st = new ST<String, String>();
+    while (!in.isEmpty()) {
+      String line = in.readLine();
+      String[] tokens = line.split(",");
+      String key = tokens[keyField];
+      String val = tokens[valField];
+      st.put(key, val);
+    }
+
+    // Process lookups with standard I/O
+    while (!StdIn.isEmpty()) {
+      String s = StdIn.readString();
+      if (!st.contains(s)) {
+        StdOut.println("Not found");
+      } else {
+        StdOut.println(st.get(s));
       }
     }
   }
