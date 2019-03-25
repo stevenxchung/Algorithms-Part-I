@@ -18,8 +18,8 @@ This course covers programming and problem solving with applications as well as 
   * Stacks and Queues
   * Elementary Sorts
 * Week 3:
-  * Merge Sort
-  * Quick Sort
+  * Mergesort
+  * Quicksort
 * Week 4:
   * Priority Queues
   * Elementary Symbol Tables
