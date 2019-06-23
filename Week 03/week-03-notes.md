@@ -1,14 +1,17 @@
 ## Week 3: Mergesort
 
-> We study the mergesort algorithm and show that it guarantees to sort any array of *N * N* items with at most *N * log(N)* compares. We also consider a non-recursive, bottom-up version. We prove that any compare-based sorting algorithm must make at least ∼*N * log(N)* compares in the worst case. We discuss using different orderings for the objects that we are sorting and the related concept of stability.
+> We study the mergesort algorithm and show that it guarantees to sort any array of _N _ N* items with at most *N _ log(N)_ compares. We also consider a non-recursive, bottom-up version. We prove that any compare-based sorting algorithm must make at least ∼*N * log(N)\* compares in the worst case. We discuss using different orderings for the objects that we are sorting and the related concept of stability.
 
 ### Mergesort
-* Mergesort could be broken down into parts:
-  * Divide array into halves
-  * Recursively sort each half
-  * Merge two halves
 
-* The Java implementation of mergesort could be implemented as follows:
+- Mergesort could be broken down into parts:
+
+  - Divide array into halves
+  - Recursively sort each half
+  - Merge two halves
+
+- The Java implementation of mergesort could be implemented as follows:
+
 ```java
 private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
   assert isSorted(a, lo, mid); // Precondition: a[lo... mid] sorted
@@ -35,7 +38,8 @@ private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int
 }
 ```
 
-* To add to the above implementation:
+- To add to the above implementation:
+
 ```java
 public class Merge {
   private static void merge(...) {
@@ -60,12 +64,13 @@ public class Merge {
 }
 ```
 
-* The run-time estimate of mergesort is 10^8 compares/second
-* A supercomputer executes 10^12 compares/second
-* The lesson learned is that a good algorithm is better than investing in a supercomputer
-* Mergesort uses at most *N * log(N)* compares and about *N * log(N)* array accesses to sort any array of size *N*
+- The run-time estimate of mergesort is 10^8 compares/second
+- A supercomputer executes 10^12 compares/second
+- The lesson learned is that a good algorithm is better than investing in a supercomputer
+- Mergesort uses at most _N _ log(N)* compares and about *N _ log(N)_ array accesses to sort any array of size _N_
 
-* One improvement we could make is using insertion sort as part of our sort procedure:
+- One improvement we could make is using insertion sort as part of our sort procedure:
+
 ```java
 private static void sort(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
   if (hi <= lo + CUTOFF - 1) {
@@ -85,11 +90,14 @@ private static void sort(Comparable[] a, Comparable[] aux, int lo, int mid, int 
 ```
 
 ### Bottom-up Mergesort
-* Although mergesort is easy to understand as recursive program, bottom-up version has no recursion:
-  * Pass through array, merging sub-arrays of size 1
-  * Repeat for sub-arrays of size 2, 4, 8, 16, ...
 
-* A Java implementation of bottom-up mergesort:
+- Although mergesort is easy to understand as recursive program, bottom-up version has no recursion:
+
+  - Pass through array, merging sub-arrays of size 1
+  - Repeat for sub-arrays of size 2, 4, 8, 16, ...
+
+- A Java implementation of bottom-up mergesort:
+
 ```java
 public class MergeBU {
   private static Comparable[] aux;
@@ -111,27 +119,32 @@ public class MergeBU {
 ```
 
 ### Sort Complexity
-* Computational complexity is a framework to study efficiency of algorithms for solving a particular problem X
-* There are several thing we care about when studying complexity:
-  * Model of computation - allowable operations
-  * Cost model - operation counts
-  * Upper bound - cost guarantee provided by some algorithm for X
-  * Lower bound - proven limit on cost guarantee of all algorithms for X
-  * Optimal algorithm - algorithm with best possible cost guarantee for X
 
-* Here is an example with sorting:
-  * Model of computation: decision tree
-  * Cost model: # compares
-  * Upper bound: ~*N * log(N)* (mergesort)
-  * Lower bound: ~*N * log(N)*
-  * Optimal algorithm: mergesort
+- Computational complexity is a framework to study efficiency of algorithms for solving a particular problem X
+- There are several thing we care about when studying complexity:
 
-* Mergesort is optimal with respect to # compares but not optimal with respect to space usage
+  - Model of computation - allowable operations
+  - Cost model - operation counts
+  - Upper bound - cost guarantee provided by some algorithm for X
+  - Lower bound - proven limit on cost guarantee of all algorithms for X
+  - Optimal algorithm - algorithm with best possible cost guarantee for X
+
+- Here is an example with sorting:
+
+  - Model of computation: decision tree
+  - Cost model: # compares
+  - Upper bound: ~_N _ log(N)\* (mergesort)
+  - Lower bound: ~_N _ log(N)\*
+  - Optimal algorithm: mergesort
+
+- Mergesort is optimal with respect to # compares but not optimal with respect to space usage
 
 ### Comparators
-* We previously saw how Comparables allow us to implement sorts with any type of data, with Comparators, we can help sort using some alternate order or many different orders on the same data
 
-* Here is an insertion sort implementation using Comparators:
+- We previously saw how Comparables allow us to implement sorts with any type of data, with Comparators, we can help sort using some alternate order or many different orders on the same data
+
+- Here is an insertion sort implementation using Comparators:
+
 ```java
 private static void sort(Object[] a, Comparator comparator) {
   int N = a.length;
@@ -153,33 +166,37 @@ private static void exch(Object[] a; int i; int j) {
 }
 ```
 
-* In general, to implement a comparator:
-  * Define a (nested) class that implements the Comparator interface
-  * Implement the compare() method
+- In general, to implement a comparator:
+  - Define a (nested) class that implements the Comparator interface
+  - Implement the compare() method
 
 ### Stability
-* Stability refers to how well an algorithm is able to preserve the relative order of items with equal keys
-* Which one of our previously covered sorts are stable?
-  * Insertion and merge sort are stable but not selection or shellsort
-* Why are insertion sort and merge sort stable?
-  * Equal items never move past each other
-* Why are selection sort and shellsort not stable?
-  * There may be long-distance exchanges which might move an item past some equal item
+
+- Stability refers to how well an algorithm is able to preserve the relative order of items with equal keys
+- Which one of our previously covered sorts are stable?
+  - Insertion and merge sort are stable but not selection or shellsort
+- Why are insertion sort and merge sort stable?
+  - Equal items never move past each other
+- Why are selection sort and shellsort not stable?
+  - There may be long-distance exchanges which might move an item past some equal item
 
 ## Week 3: Quicksort
 
-> We introduce and implement the randomized quicksort algorithm and analyze its performance. We also consider randomized quick-select, a quicksort variant which finds the *kth* smallest item in linear time. Finally, consider 3-way quicksort, a variant of quicksort that works especially well in the presence of duplicate keys.
+> We introduce and implement the randomized quicksort algorithm and analyze its performance. We also consider randomized quick-select, a quicksort variant which finds the _kth_ smallest item in linear time. Finally, consider 3-way quicksort, a variant of quicksort that works especially well in the presence of duplicate keys.
 
 ### Quicksort
-* Quicksort is a recursive method which works in several steps:
-  * Shuffle the array
-  * Partition so that, for some *j*:
-    * Entry *a[j]* is in place
-    * No larger entry to the left of *j*
-    * No smaller entry to the right of *j*
-  * Sort each piece recursively
 
-* The code for partitioning is as follows:
+- Quicksort is a recursive method which works in several steps:
+
+  - Shuffle the array
+  - Partition so that, for some _j_:
+    - Entry _a[j]_ is in place
+    - No larger entry to the left of _j_
+    - No smaller entry to the right of _j_
+  - Sort each piece recursively
+
+- The code for partitioning is as follows:
+
 ```java
 private static int partition(Comparable[] a, int lo, int hi) {
   int i = lo, j = hi + 1;
@@ -209,8 +226,9 @@ private static int partition(Comparable[] a, int lo, int hi) {
 }
 ```
 
-* Remember that quicksort itself is a recursive program:
-``` java
+- Remember that quicksort itself is a recursive program:
+
+```java
 public class Quick {
   private static int partition(Comparable[] a, int lo, int hi) {
     /* as before */
@@ -232,15 +250,16 @@ public class Quick {
 }
 ```
 
-* Shuffling is needed for performance guarantee, this preserves randomness
-* Best case number of compares for quicksort is ~*N * log(N)*
-* Worst case number of compares for quicksort is ~*(1/2) * N^2*
-* The average number of compares for quicksort is ~*2*N * log(N)*
-* On average, quicksort does about 40% more compares than mergesort but faster than mergesort due to less data movement
-* Quicksort is an *in-place* sorting algorithm
-* Quicksort is *not stable*
+- Shuffling is needed for performance guarantee, this preserves randomness
+- Best case number of compares for quicksort is ~_N _ log(N)\*
+- Worst case number of compares for quicksort is ~_(1/2) _ N^2\*
+- The average number of compares for quicksort is ~*2*N _ log(N)_
+- On average, quicksort does about 40% more compares than mergesort but faster than mergesort due to less data movement
+- Quicksort is an _in-place_ sorting algorithm
+- Quicksort is _not stable_
 
-* There is a way to make quicksort faster by using insertion sort as a step for small arrays:
+- There is a way to make quicksort faster by using insertion sort as a step for small arrays:
+
 ```java
 public static void sort(Comparable[] a, int lo, int hi) {
   if (hi <= lo + CUTOFF - 1) {
@@ -253,7 +272,8 @@ public static void sort(Comparable[] a, int lo, int hi) {
 }
 ```
 
-* Another improvement is to take median of sample (not worth for large samples):
+- Another improvement is to take median of sample (not worth for large samples):
+
 ```java
 public static void sort(Comparable[] a, int lo, int hi) {
   if (hi <= lo) {
@@ -270,15 +290,17 @@ public static void sort(Comparable[] a, int lo, int hi) {
 ```
 
 ### Selection
-* Similar to quicksort we want a method to quickly select a particular item in a set
-* The idea for selection is to partition an array so that:
-  * Entry* a[j]* is in place
-  * No larger entry to the left of *j*
-  * No smaller entry to the right of *j*
-* Repeat in one sub-array, depending on *j*
-* Finished when *j* equals *k*
 
-* An implementation of quick-select is as follows:
+- Similar to quicksort we want a method to quickly select a particular item in a set
+- The idea for selection is to partition an array so that:
+  - Entry* a[j]* is in place
+  - No larger entry to the left of _j_
+  - No smaller entry to the right of _j_
+- Repeat in one sub-array, depending on _j_
+- Finished when _j_ equals _k_
+
+- An implementation of quick-select is as follows:
+
 ```java
 public static Comparable select(Comparable[] a, int k) {
   StdRandom.shuffle(a);
@@ -297,17 +319,20 @@ public static Comparable select(Comparable[] a, int k) {
 }
 ```
 
-* Quick-select takes *linear-time* on average
+- Quick-select takes _linear-time_ on average
 
 ### Duplicate Keys
-* Mergesort with duplicate keys always took between *(1/2) * N * log(N)* and *N * log(N)* compares
-* Quicksort with duplicate keys goes quadratic unless partitioning stops on equal keys
-* We want to partition array into three parts such that:
-  * Entries between *a* and *b* are equal to partition item *c*
-  * No larger entries to left to *a* (lower bound)
-  * No smaller entries to right of *b* (upper bound)
 
-* Here's how we would implement three-way quicksort:
+- Mergesort with duplicate keys always took between _(1/2) _ N _ log(N)_ and _N _ log(N)\* compares
+- Quicksort with duplicate keys goes quadratic unless partitioning stops on equal keys
+- We want to partition array into three parts such that:
+
+  - Entries between _a_ and _b_ are equal to partition item _c_
+  - No larger entries to left to _a_ (lower bound)
+  - No smaller entries to right of _b_ (upper bound)
+
+- Here's how we would implement three-way quicksort:
+
 ```java
 private static void sort(Comparable[] a, int lo, int hi) {
   if (hi <= lo) {
@@ -335,23 +360,26 @@ private static void sort(Comparable[] a, int lo, int hi) {
 }
 ```
 
-* Randomized quicksort with three-way partitioning reduces running time from linearithmic to linear in broad class of applications
+- Randomized quicksort with three-way partitioning reduces running time from linearithmic to linear in broad class of applications
 
 ### System Sorts
-* Java has a `sort()` method which:
-  * Has a different method for each primitive type
-  * Has a method for data types that implement Comparable
-  * Has a method that uses a Comparator
-  * Uses tuned quicksort for primitive types; tuned mergesort for objects
 
-* A sort function widely used in C, C++ and Java has the following:
-  * Cutoff to insertion sort for small sub-arrays
-  * Partitioning scheme: three-way partitioning (Dijkstra's)
-  * Partitioning item:
-    * Small arrays: middle entry
-    * Medium arrays: median of three
-    * Large arrays: Tukey's ninther
+- Java has a `sort()` method which:
 
-* Tukey's ninther - median of three samples, each three entries:
-  * Approximates the median of nine
-  * Uses at most twelve compares
+  - Has a different method for each primitive type
+  - Has a method for data types that implement Comparable
+  - Has a method that uses a Comparator
+  - Uses tuned quicksort for primitive types; tuned mergesort for objects
+
+- A sort function widely used in C, C++ and Java has the following:
+
+  - Cutoff to insertion sort for small sub-arrays
+  - Partitioning scheme: three-way partitioning (Dijkstra's)
+  - Partitioning item:
+    - Small arrays: middle entry
+    - Medium arrays: median of three
+    - Large arrays: Tukey's ninther
+
+- Tukey's ninther - median of three samples, each three entries:
+  - Approximates the median of nine
+  - Uses at most twelve compares

@@ -1,20 +1,24 @@
 ## Week 4: Priority Queues
 
-> We introduce the priority queue data type and an efficient implementation using the *binary heap* data structure. This implementation also leads to an efficient sorting algorithm known as *heapsort*. We conclude with an applications of priority queues where we simulate the motion of *N* particles subject to the laws of elastic collision.
+> We introduce the priority queue data type and an efficient implementation using the _binary heap_ data structure. This implementation also leads to an efficient sorting algorithm known as _heapsort_. We conclude with an applications of priority queues where we simulate the motion of _N_ particles subject to the laws of elastic collision.
 
 ### APIs and elementary implementations
-* Let's compare inserts and deletes:
-  * Stack - remove the item most recently added
-  * Queue - remove the item least recently added
-  * Randomized queue - remove a random item
-  * Priority queue - remove the largest or smallest item
 
-* A requirement for priority queues - generic types are Comparable
-* Let's look at a common scenario where a priority queue would be implemented:
-  * Find the largest *M* items in a stream of *N* items (e.g. fraud detection, file maintenance)
-  * Constraint: not enough memory to store *N* items
+- Let's compare inserts and deletes:
 
-* Here's how this would be implemented in Java:
+  - Stack - remove the item most recently added
+  - Queue - remove the item least recently added
+  - Randomized queue - remove a random item
+  - Priority queue - remove the largest or smallest item
+
+- A requirement for priority queues - generic types are Comparable
+- Let's look at a common scenario where a priority queue would be implemented:
+
+  - Find the largest _M_ items in a stream of _N_ items (e.g. fraud detection, file maintenance)
+  - Constraint: not enough memory to store _N_ items
+
+- Here's how this would be implemented in Java:
+
 ```java
 // Use a min-oriented pq
 // Transaction data type is Comparable (ordered by $)
@@ -31,7 +35,8 @@ while (Std.hasNextLine()) {
 }
 ```
 
-* For unordered arrays, priority queue would look something like this in Java:
+- For unordered arrays, priority queue would look something like this in Java:
+
 ```java
 public class UnorderedMaxPQ<Key extends Comparable<key>> {
   private Key[] pq; // pq[i] = ith element on pq
@@ -63,23 +68,26 @@ public class UnorderedMaxPQ<Key extends Comparable<key>> {
 ```
 
 ### Binary Heaps
-* A binary heap is based on the binary tree (empty or node with lines to left and right binary trees)
-* Here are some characteristics of trees:
-  * A complete tree is perfectly balanced except for bottom level
-  * Height of complete tree with *N* nodes is *log(n)*
-  * Height only increases when *N* is a power of two
 
-* Binary heaps are an array representation of a heap-ordered complete binary tree, here's what we mean by that:
-  * Heap-ordered binary tree:
-    * Keys in nodes
-    * Parent's key no smaller than children's keys
-  * Array representation:
-    * Indices start at one
-    * Take nodes in level order
-    * No explicit links needed
-* The largest key in a binary heap is a[1] which is the root of the binary tree
+- A binary heap is based on the binary tree (empty or node with lines to left and right binary trees)
+- Here are some characteristics of trees:
 
-* Here's an implementation of binary heap:
+  - A complete tree is perfectly balanced except for bottom level
+  - Height of complete tree with _N_ nodes is _log(n)_
+  - Height only increases when _N_ is a power of two
+
+- Binary heaps are an array representation of a heap-ordered complete binary tree, here's what we mean by that:
+  - Heap-ordered binary tree:
+    - Keys in nodes
+    - Parent's key no smaller than children's keys
+  - Array representation:
+    - Indices start at one
+    - Take nodes in level order
+    - No explicit links needed
+- The largest key in a binary heap is a[1] which is the root of the binary tree
+
+- Here's an implementation of binary heap:
+
 ```java
 public class MaxPQ<Key extends Comparable<Key>> {
   private Key[] pq;
@@ -140,14 +148,17 @@ public class MaxPQ<Key extends Comparable<Key>> {
   }
 }
 ```
-### Heap Sort
-* Here's the basic idea of heap sort:
-  * Create max-heap with all *N* keys
-  * Repeatedly remove the maximum key
-* We want to build max heap using bottom-up method (start from the bottom of the tree)
-* Then we want to repeatedly delete the largest remaining item
 
-* Here is what the implementation looks like:
+### Heap Sort
+
+- Here's the basic idea of heap sort:
+  - Create max-heap with all _N_ keys
+  - Repeatedly remove the maximum key
+- We want to build max heap using bottom-up method (start from the bottom of the tree)
+- Then we want to repeatedly delete the largest remaining item
+
+- Here is what the implementation looks like:
+
 ```java
 public class Heap {
   public static void sort(Comparable[] pq) {
@@ -175,50 +186,56 @@ public class Heap {
 }
 ```
 
-* Heap construction uses less than or equal to 2 *N* compares and exchanges
-* Heap sort uses less than or equal to 2 * *(N * log(n))* compares and exchanges
-* Heap sort has an in-place sorting algorithm with *N * log(n)* worse-case
-* The bottom line is that heap sort is optimal for both time and space **but**:
-  * Inner loop is longer than quicksort
-  * Makes poor use of cache memory
-  * Not stable
+- Heap construction uses less than or equal to 2 _N_ compares and exchanges
+- Heap sort uses less than or equal to 2 \* _(N _ log(n))\* compares and exchanges
+- Heap sort has an in-place sorting algorithm with _N _ log(n)\* worse-case
+- The bottom line is that heap sort is optimal for both time and space **but**:
+  - Inner loop is longer than quicksort
+  - Makes poor use of cache memory
+  - Not stable
 
 ## Week 4: Elementary Symbol Tables
 
-> We define an API for *symbol tables* (also known as *associative arrays*) and describe two elementary implementations using a sorted array (binary search) and an unordered list (sequential search). When the keys are Comparable, we define an extended API that includes the additional methods min, max floor, ceiling, rank, and select. To develop an efficient implementation of this API, we study the *binary search tree* data structure and analyze its performance.
+> We define an API for _symbol tables_ (also known as _associative arrays_) and describe two elementary implementations using a sorted array (binary search) and an unordered list (sequential search). When the keys are Comparable, we define an extended API that includes the additional methods min, max floor, ceiling, rank, and select. To develop an efficient implementation of this API, we study the _binary search tree_ data structure and analyze its performance.
 
 ### Symbol Table API
-* Symbol tables are key-value pair abstractions:
-  * **Insert** a value with a specified key
-  * Given a key, **search** for the corresponding value
 
-* A good way to set up a basic symbol table API is to implement an associative array abstraction (associate one value with each key)
+- Symbol tables are key-value pair abstractions:
 
-* Some conventions of this implementation are:
-  * Values are not *null*
-  * Method `get()` returns *null* if key not present
-  * Method `put()` overwrites old value with new value
-* For keys and values:
-  * Assume keys are `Comparable`, use `compareTo()`
-  * Assume keys are any generic type, use `equals()` to test equality
-  * Assume keys are any generic type, use `equals()` to test equality and then `hashCode()` to scramble key
-* Best practices:
-  * Best to use immutable types for symbol table keys
-  * Immutable types in Java include: String, Integer, Double, java.io.File, ...
-  * Mutable in Java: StringBuilder, java.net.URL, arrays, ...
-* Lastly, all java classes inherit a method `equals()`
+  - **Insert** a value with a specified key
+  - Given a key, **search** for the corresponding value
+
+- A good way to set up a basic symbol table API is to implement an associative array abstraction (associate one value with each key)
+
+- Some conventions of this implementation are:
+  - Values are not _null_
+  - Method `get()` returns _null_ if key not present
+  - Method `put()` overwrites old value with new value
+- For keys and values:
+  - Assume keys are `Comparable`, use `compareTo()`
+  - Assume keys are any generic type, use `equals()` to test equality
+  - Assume keys are any generic type, use `equals()` to test equality and then `hashCode()` to scramble key
+- Best practices:
+  - Best to use immutable types for symbol table keys
+  - Immutable types in Java include: String, Integer, Double, java.io.File, ...
+  - Mutable in Java: StringBuilder, java.net.URL, arrays, ...
+- Lastly, all java classes inherit a method `equals()`
 
 ### Elementary Implementations
-* One elementary implementation is sequential search in a linked list:
-  * Data structure - maintain an unordered linked list of key-value pairs
-  * Search - scan through all keys until match is found
-  * Insert - scan through all keys until match is found, and add to front if there is no match
 
-* Another implementation is binary search with an ordered array:
-  * Data structure - maintain an ordered array of key-value pairs
-  * Rank helper function - how many keys are less than *k*
+- One elementary implementation is sequential search in a linked list:
 
-* Here is what the binary search implementation looks like in Java:
+  - Data structure - maintain an unordered linked list of key-value pairs
+  - Search - scan through all keys until match is found
+  - Insert - scan through all keys until match is found, and add to front if there is no match
+
+- Another implementation is binary search with an ordered array:
+
+  - Data structure - maintain an ordered array of key-value pairs
+  - Rank helper function - how many keys are less than _k_
+
+- Here is what the binary search implementation looks like in Java:
+
 ```java
 public Value get(Key key) {
   if (isEmpty()) {
@@ -250,41 +267,44 @@ private int rank(Key key) {
 ```
 
 ### Ordered Operations
-* When keys are comparable we can put them in order, we saw that we can use binary search to get an efficient symbol table implementation
-* Below is a summary of sequential search versus binary search for the following operations:
-  * Search
-  * Insert/delete
-  * Min/max
-  * Floor/ceiling
-  * Rank
-  * Select
-  * Ordered iteration
 
+- When keys are comparable we can put them in order, we saw that we can use binary search to get an efficient symbol table implementation
+- Below is a summary of sequential search versus binary search for the following operations:
+  - Search
+  - Insert/delete
+  - Min/max
+  - Floor/ceiling
+  - Rank
+  - Select
+  - Ordered iteration
 
 | operations        | sequential search | binary search |
 | ----------------- | ----------------- | ------------- |
-| search            | *N*               | *log(N)*      |
-| insert/delete     | *N*               | *N*           |
-| min/max           | *N*               | *1*           |
-| floor/ceiling     | *N*               | *log(N)*      |
-| rank              | *N*               | *log(N)*      |
-| select            | *N*               | *log(N)*      |
-| ordered iteration | *N * log(N)*      | *N*           |
+| search            | _N_               | _log(N)_      |
+| insert/delete     | _N_               | _N_           |
+| min/max           | _N_               | _1_           |
+| floor/ceiling     | _N_               | _log(N)_      |
+| rank              | _N_               | _log(N)_      |
+| select            | _N_               | _log(N)_      |
+| ordered iteration | _N _ log(N)\*     | _N_           |
 
 ### Binary Search Tree
-* A BST (Binary Search Tree) is a **binary tree** in **symmetric order**
-* A binary tree tree is either:
-  * Empty
-  * Two disjoint binary trees (left and right)
-* BSTs have symmetric order - each node has a key and every node's key is:
-  * Larger than all keys in its left subtree
-  * Smaller than all keys in its right subtree
-* BSTs is a reference to a root `Node`
-* A Node is comprised of four fields:
-  * A `Key` and a `Value`
-  * A reference to the left and right subtree
 
-* Here is what the `Node` class looks like in Java:
+- A BST (Binary Search Tree) is a **binary tree** in **symmetric order**
+- A binary tree tree is either:
+  - Empty
+  - Two disjoint binary trees (left and right)
+- BSTs have symmetric order - each node has a key and every node's key is:
+  - Larger than all keys in its left subtree
+  - Smaller than all keys in its right subtree
+- BSTs is a reference to a root `Node`
+- A Node is comprised of four fields:
+
+  - A `Key` and a `Value`
+  - A reference to the left and right subtree
+
+- Here is what the `Node` class looks like in Java:
+
 ```java
 private class Node {
   private Key key;
@@ -297,7 +317,8 @@ private class Node {
 }
 ```
 
-* BST search in Java is:
+- BST search in Java is:
+
 ```java
 public Value get(Key key) {
   Node x = root;
@@ -315,7 +336,8 @@ public Value get(Key key) {
 }
 ```
 
-* BST insert implemented in Java is:
+- BST insert implemented in Java is:
+
 ```java
 public void put(Key key, Value val) {
   root = put(root, key, val);
@@ -338,34 +360,37 @@ private Node put(Node x, Key key, Value val) {
 ```
 
 ### Ordered operations in BSTs
-* There are many different ordered operations when it comes to BSTs
 
-* How do we find the minimum or maximum in a BST?
-  * Minimum - move left from the root
-  * Maximum - move right from the root
-* How do we determine the floor and ceiling?
-  * Floor - largest key less than or equal to a given key
-  * Ceiling - smallest key greater than or equal to a given key
-* How do we determine rank (How many keys less than *k*)?
-  * Implement recursive algorithm (3 cases)
-  * Need to implement subtree count as part of the `Node` class for this to work
-* How to implement in-order traversal?
-  * Traverse left subtree
-  * Enqueue key
-  * Traverse right subtree
+- There are many different ordered operations when it comes to BSTs
 
-* For all ordered operations, BSTs have a run-time efficiency proportional to the height of the tree except for ordered iteration
-* The height of the BST is also proportional to *log(N)* if keys are inserted in random order
+- How do we find the minimum or maximum in a BST?
+  - Minimum - move left from the root
+  - Maximum - move right from the root
+- How do we determine the floor and ceiling?
+  - Floor - largest key less than or equal to a given key
+  - Ceiling - smallest key greater than or equal to a given key
+- How do we determine rank (How many keys less than _k_)?
+  - Implement recursive algorithm (3 cases)
+  - Need to implement subtree count as part of the `Node` class for this to work
+- How to implement in-order traversal?
+
+  - Traverse left subtree
+  - Enqueue key
+  - Traverse right subtree
+
+- For all ordered operations, BSTs have a run-time efficiency proportional to the height of the tree except for ordered iteration
+- The height of the BST is also proportional to _log(N)_ if keys are inserted in random order
 
 ### Deletion in BSTs
-* To remove a node with a given key (lazy approach):
-  * Set its value to *null*
-  * Leave key in tree to guide searches (but don't consider it equal in search)
-  * The problem with this lazy approach is that memory will be overload
-* How to delete the minimum (also applicable to maximum):
-  * Go left until finding a node with a null left link
-  * Replace that node by its right link
-  * Update subtree counts
-* Another way to implement min/max deletion is using Hibbard deletion:
-  * To delete a node with key *k*, search for node *t* containing key *k*
-* The main problem with Hibbert deletion is that it unbalances the tree leading to *sqrt(N)* height
+
+- To remove a node with a given key (lazy approach):
+  - Set its value to _null_
+  - Leave key in tree to guide searches (but don't consider it equal in search)
+  - The problem with this lazy approach is that memory will be overload
+- How to delete the minimum (also applicable to maximum):
+  - Go left until finding a node with a null left link
+  - Replace that node by its right link
+  - Update subtree counts
+- Another way to implement min/max deletion is using Hibbard deletion:
+  - To delete a node with key _k_, search for node _t_ containing key _k_
+- The main problem with Hibbert deletion is that it unbalances the tree leading to _sqrt(N)_ height
